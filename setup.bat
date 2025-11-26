@@ -8,6 +8,11 @@ setlocal
 :: dependency installation, Ollama model check, and application launch.
 :: ============================================================================
 
+:: --- Change to the script's directory ---
+:: This ensures that all paths are relative to the script location,
+:: even when "Run as administrator".
+cd /d "%~dp0"
+
 :: --- Configuration ---
 set VENV_NAME=venv
 set PYTHON_CMD=python
