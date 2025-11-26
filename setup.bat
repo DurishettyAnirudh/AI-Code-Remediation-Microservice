@@ -1,50 +1,83 @@
 @echo off
 setlocal
 
+:: ============================================================================
+:: AI Code Remediation Microservice Setup Script
+:: ============================================================================
+:: This script automates the complete setup for the project, including
+:: dependency installation, Ollama model check, and application launch.
+:: ============================================================================
+
 :: --- Configuration ---
 set VENV_NAME=venv
 set PYTHON_CMD=python
+set REQUIRED_MODEL=gemma3:1b
 
-:: --- 1. Check for Python ---
-echo Checking for Python...
+:: --- 1. Administrator Check ---
+echo Checking for Administrator privileges...
+net session >nul 2>nul
+if %errorlevel% neq 0 (
+    echo --------------------------------------------------------------------
+    echo ^> ERROR: Administrator privileges are required.
+    echo ^> Please right-click on setup.bat and select "Run as administrator".
+    echo --------------------------------------------------------------------
+    pause
+    goto :eof
+)
+echo Privileges check passed.
+
+:: --- 2. Check for Python ---
+echo.
+echo Checking for Python installation...
 where %PYTHON_CMD% >nul 2>nul
 if %errorlevel% neq 0 (
-    echo ERROR: Python is not found in your system's PATH.
-    echo Please install Python 3.8+ and ensure it's added to your PATH.
-    echo https://www.python.org/downloads/
+    echo --------------------------------------------------------------------
+    echo ^> ERROR: Python is not found in your system's PATH.
+    echo ^> Please install Python 3.8+ and ensure it's added to your PATH.
+    echo ^> Download from: https://www.python.org/downloads/
+    echo --------------------------------------------------------------------
+    pause
     goto :eof
 )
 echo Python found.
 
-:: --- 2. Check for Ollama ---
+:: --- 3. Check for Ollama ---
+echo.
 echo Checking for Ollama server...
 curl http://localhost:11434 >nul 2>nul
 if %errorlevel% neq 0 (
-    echo WARNING: Ollama server is not running at http://localhost:11434.
-    echo Please ensure the Ollama application is installed and running.
-    echo You can download it from: https://ollama.com/
-    echo After starting Ollama, you may need to run this script again.
+    echo --------------------------------------------------------------------
+    echo ^> WARNING: Ollama server is not running at http://localhost:11434.
+    echo ^> Please ensure the Ollama application is installed and running.
+    echo ^> Download from: https://ollama.com/
+    echo --------------------------------------------------------------------
     pause
-) else (
-    echo Ollama server is running.
-    
-    echo Checking for gemma3:1b model...
-    ollama list | findstr /C:"gemma3:1b" >nul
+    goto :eof
+)
+echo Ollama server is running.
+
+:: --- 4. Check for and Pull Ollama Model ---
+echo.
+echo Checking for Ollama model '%REQUIRED_MODEL%'...
+ollama show %REQUIRED_MODEL% >nul 2>nul
+if %errorlevel% neq 0 (
+    echo Model not found. Pulling '%REQUIRED_MODEL%' from Ollama...
+    ollama pull %REQUIRED_MODEL%
     if %errorlevel% neq 0 (
-        echo Model not found. Pulling gemma3:1b from Ollama...
-        ollama pull gemma3:1b
-        if %errorlevel% neq 0 (
-            echo ERROR: Failed to pull gemma3:1b model. Please check your Ollama installation and network.
-            pause
-            goto :eof
-        )
-        echo Model pulled successfully.
-    ) else (
-        echo gemma3:1b model is already available.
+        echo --------------------------------------------------------------------
+        echo ^> ERROR: Failed to pull '%REQUIRED_MODEL%'.
+        echo ^> Please check your Ollama installation and network connection.
+        echo --------------------------------------------------------------------
+        pause
+        goto :eof
     )
+    echo Model pulled successfully.
+) else (
+    echo Model '%REQUIRED_MODEL%' is already available.
 )
 
-:: --- 3. Create Virtual Environment ---
+:: --- 5. Create Virtual Environment ---
+echo.
 if not exist "%VENV_NAME%\" (
     echo Creating virtual environment in '%VENV_NAME%'...
     %PYTHON_CMD% -m venv %VENV_NAME%
@@ -57,7 +90,8 @@ if not exist "%VENV_NAME%\" (
     echo Virtual environment already exists.
 )
 
-:: --- 4. Install Dependencies ---
+:: --- 6. Install Dependencies ---
+echo.
 echo Activating virtual environment and installing dependencies...
 call "%VENV_NAME%\Scripts\activate.bat"
 pip install -r requirements.txt
@@ -67,15 +101,16 @@ if %errorlevel% neq 0 (
 )
 echo Dependencies installed successfully.
 
-:: --- 5. Start FastAPI Server ---
+:: --- 7. Start FastAPI Server ---
 echo.
 echo Starting the FastAPI server in a new window...
 start "FastAPI Server" cmd /c "call "%VENV_NAME%\Scripts\activate.bat" && uvicorn api:app --reload"
 
 :: Give the server a moment to start
+echo Waiting for server to initialize...
 timeout /t 5 /nobreak >nul
 
-:: --- 6. Launch Streamlit UI ---
+:: --- 8. Launch Streamlit UI ---
 echo.
 echo Launching the Streamlit UI...
 streamlit run streamlit_app.py
