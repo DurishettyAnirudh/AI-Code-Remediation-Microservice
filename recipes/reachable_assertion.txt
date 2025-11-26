@@ -1,0 +1,45 @@
+cwe: CWE-617
+name: Reachable Assertion
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product contains an assert() or similar statement that can be triggered by an
+attacker, which leads to an application exit or other behavior that is more severe than
+necessary.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Make sensitive open/close operation non reachable by directly user-controlled data (e.g. open/close resources)
+- PHASE:Implementation:Input Validation:Perform input validation on user data.
+Don't:
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:An attacker that can trigger an assert statement can still lead to a denial of service if the relevant code can be triggered by an attacker, and if the scope of the assert() extends beyond the attacker's own session.
+
+Language-Agnostic Guidance:
+While assertion is good for catching logic errors and reducing the chances of reaching
+more serious vulnerability conditions, it can still lead to a denial of service. For
+example, if a server handles multiple simultaneous connections, and an assert() occurs in
+one single connection that causes all other connections to be dropped, this is a reachable
+assertion that leads to a denial of service.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Implementation:DESCRIPTION:Make sensitive open/close operation non reachable by
+directly user-controlled data (e.g. open/close
+resources)::PHASE:Implementation:STRATEGY:Input Validation:DESCRIPTION:Perform input
+validation on user data.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

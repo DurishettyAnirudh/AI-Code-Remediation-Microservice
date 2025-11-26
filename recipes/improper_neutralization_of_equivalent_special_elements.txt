@@ -1,0 +1,38 @@
+cwe: CWE-76
+name: Improper Neutralization of Equivalent Special Elements
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product correctly neutralizes certain special elements, but it improperly neutralizes
+equivalent special elements.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Requirements:Programming languages and supporting technologies might be chosen which are not subject to these issues.
+- PHASE:Implementation:Utilize an appropriate mix of allowlist and denylist parsing to filter equivalent special element syntax from all input.
+Don't:
+- Other:Avoid situations leading toOther
+
+Language-Agnostic Guidance:
+The product may have a fixed list of special characters it believes is complete. However,
+there may be alternate encodings, or representations that also have the same meaning. For
+example, the product may filter out a leading slash (/) to prevent absolute path names,
+but does not account for a tilde (~) followed by a user name, which on some *nix systems
+could be expanded to an absolute pathname. Alternately, the product might filter a
+dangerous -e command-line switch when calling an external program, but it might not
+account for --exec or other switches that have the same semantics.
+
+::PHASE:Requirements:DESCRIPTION:Programming languages and supporting technologies might
+be chosen which are not subject to these issues.::PHASE:Implementation:DESCRIPTION:Utilize
+an appropriate mix of allowlist and denylist parsing to filter equivalent special element
+syntax from all input.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

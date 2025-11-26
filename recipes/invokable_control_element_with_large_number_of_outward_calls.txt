@@ -1,0 +1,31 @@
+cwe: CWE-1048
+name: Invokable Control Element with Large Number of Outward Calls
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The code contains callable control elements that contain an excessively large number of
+references to other application objects external to the context of the callable, i.e. a
+Fan-Out value that is excessively large.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+While the interpretation of excessively large Fan-Out value may vary for each product or
+developer, CISQ recommends a default of 5 referenced objects. This issue makes it more
+difficult to maintain the product, which indirectly affects security by making it more
+difficult or time-consuming to find and/or fix vulnerabilities. It also might make it
+easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

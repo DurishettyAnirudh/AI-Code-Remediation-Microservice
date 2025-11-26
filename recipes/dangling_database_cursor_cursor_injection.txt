@@ -1,0 +1,32 @@
+cwe: CWE-619
+name: Dangling Database Cursor ('Cursor Injection')
+languages: SQL
+tags: Base, Incomplete
+---
+Short Description:
+If a database cursor is not closed properly, then it could become accessible to other
+users while retaining the same privileges that were originally assigned, leaving the
+cursor dangling.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Close cursors immediately after access to them is complete. Ensure that you close cursors if exceptions occur.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data
+
+Language-Agnostic Guidance:
+For example, an improper dangling cursor could arise from unhandled exceptions. The impact
+of the issue depends on the cursor's role, but SQL injection attacks are commonly
+possible.
+
+::PHASE:Implementation:DESCRIPTION:Close cursors immediately after access to them is
+complete. Ensure that you close cursors if exceptions occur.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

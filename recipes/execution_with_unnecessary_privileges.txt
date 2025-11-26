@@ -1,0 +1,116 @@
+cwe: CWE-250
+name: Execution with Unnecessary Privileges
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product performs an operation at a privilege level that is higher than the minimum
+level required, which creates new weaknesses or amplifies the consequences of other
+weaknesses.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Operation:Environment Hardening:Run your code using the lowest privileges that are required to accomplish the necessary tasks [REF-76]. If possible, create isolated accounts with limited privileges that are only used for a single task. That way, a successful attack will not immediately give the attacker access to the rest of the software or its environment. For example, database applications rarely need to run as the database administrator, especially in day-to-day operations.
+- PHASE:Architecture and Design:Separation of Privilege:Identify the functionality that requires additional privileges, such as access to privileged operating system resources. Wrap and centralize this functionality if possible, and isolate the privileged code as much as possible from other code [REF-76]. Raise privileges as late as possible, and drop them as soon as possible to avoid CWE-271. Avoid weaknesses such as CWE-288 and CWE-420 by protecting all possible communication channels that could interact with the privileged code, such as a secondary socket that is only intended to be accessed by administrators.
+- PHASE:Architecture and Design:Attack Surface Reduction:Identify the functionality that requires additional privileges, such as access to privileged operating system resources. Wrap and centralize this functionality if possible, and isolate the privileged code as much as possible from other code [REF-76]. Raise privileges as late as possible, and drop them as soon as possible to avoid CWE-271. Avoid weaknesses such as CWE-288 and CWE-420 by protecting all possible communication channels that could interact with the privileged code, such as a secondary socket that is only intended to be accessed by administrators.
+- PHASE:Implementation:Perform extensive input validation for any privileged code that must be exposed to the user and reject anything that does not fit your strict requirements.
+- PHASE:Implementation:When dropping privileges, ensure that they have been dropped successfully to avoid CWE-273. As protection mechanisms in the environment get stronger, privilege-dropping calls may fail even if it seems like they would always succeed.
+- PHASE:Implementation:If circumstances force you to run with extra privileges, then determine the minimum access level necessary. First identify the different permissions that the software and its users will need to perform their actions, such as file read and write permissions, network socket permissions, and so forth. Then explicitly allow those actions while denying all else [REF-76]. Perform extensive input validation and canonicalization to minimize the chances of introducing a separate vulnerability. This mitigation is much more prone to error than dropping the privileges in the first place.
+- PHASE:Operation System Configuration:Environment Hardening:Ensure that the software runs properly under the United States Government Configuration Baseline (USGCB) [REF-199] or an equivalent hardening configuration guide, which many organizations use to limit the attack surface and potential risk of deployed software.
+Don't:
+- Confidentiality:Integrity:Availability:Access Control:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toExecute Unauthorized Code or Commands:Avoid situations leading toRead Application Data:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:An attacker will be able to gain access to any resources that are allowed by the extra privileges. Common results include executing code, disabling services, and reading restricted data. New weaknesses can be exposed because running with extra privileges, such as root or Administrator, can disable the normal security checks being performed by the operating system or surrounding environment. Other pre-existing weaknesses can turn into security vulnerabilities if they occur while operating at raised privileges.
+
+Language-Agnostic Guidance:
+::METHOD:Manual Analysis:DESCRIPTION:This weakness can be detected using tools and
+techniques that require manual (human) analysis, such as penetration testing, threat
+modeling, and interactive tools that allow the tester to record and modify an active
+session.::METHOD:Black Box:DESCRIPTION:Use monitoring tools that examine the software's
+process as it interacts with the operating system and the network. This technique is
+useful in cases when source code is unavailable, if the software was not developed by you,
+or if you want to verify that the build phase did not introduce any new weaknesses.
+Examples include debuggers that directly attach to the running process; system-call
+tracing utilities such as truss (Solaris) and strace (Linux); system activity monitors
+such as FileMon, RegMon, Process Monitor, and other Sysinternals utilities (Windows); and
+sniffers and protocol analyzers that monitor network traffic. Attach the monitor to the
+process and perform a login. Look for library functions and system calls that indicate
+when privileges are being raised or dropped. Look for accesses of resources that are
+restricted to normal users.::METHOD:Automated Static Analysis - Binary or
+Bytecode:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may
+be useful: Highly cost effective: Compare binary / bytecode to application permission
+manifest Cost effective for partial coverage: Bytecode Weakness Analysis - including
+disassembler + source code weakness analysis Binary Weakness Analysis - including
+disassembler + source code weakness analysis:EFFECTIVENESS:High::METHOD:Manual Static
+Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR [REF-1479], the following
+detection techniques may be useful: Cost effective for partial coverage: Binary / Bytecode
+disassembler - then use manual analysis for vulnerabilities & anomalies:EFFECTIVENESS:SOAR
+Partial::METHOD:Dynamic Analysis with Automated Results
+Interpretation:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Cost effective for partial coverage: Host-based Vulnerability
+Scanners - Examine configuration for flaws, verifying that audit mechanisms work, ensure
+host configuration meets certain predefined criteria:EFFECTIVENESS:SOAR
+Partial::METHOD:Dynamic Analysis with Manual Results Interpretation:DESCRIPTION:According
+to SOAR [REF-1479], the following detection techniques may be useful: Cost effective for
+partial coverage: Host Application Interface Scanner:EFFECTIVENESS:SOAR
+Partial::METHOD:Manual Static Analysis - Source Code:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Highly cost effective:
+Manual Source Code Review (not inspections) Cost effective for partial coverage: Focused
+Manual Spotcheck - Focused manual analysis of source:EFFECTIVENESS:High::METHOD:Automated
+Static Analysis - Source Code:DESCRIPTION:According to SOAR [REF-1479], the following
+detection techniques may be useful: Cost effective for partial coverage: Source code
+Weakness Analyzer Context-configured Source Code Weakness Analyzer:EFFECTIVENESS:SOAR
+Partial::METHOD:Automated Static Analysis:DESCRIPTION:According to SOAR [REF-1479], the
+following detection techniques may be useful: Cost effective for partial coverage:
+Configuration Checker Permission Manifest Analysis:EFFECTIVENESS:SOAR
+Partial::METHOD:Architecture or Design Review:DESCRIPTION:According to SOAR [REF-1479],
+the following detection techniques may be useful: Highly cost effective: Inspection (IEEE
+1028 standard) (can apply to requirements, design, source code, etc.) Formal Methods /
+Correct-By-Construction Cost effective for partial coverage: Attack
+Modeling:EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design Operation:STRATEGY:Environment Hardening:DESCRIPTION:Run
+your code using the lowest privileges that are required to accomplish the necessary tasks
+[REF-76]. If possible, create isolated accounts with limited privileges that are only used
+for a single task. That way, a successful attack will not immediately give the attacker
+access to the rest of the software or its environment. For example, database applications
+rarely need to run as the database administrator, especially in day-to-day
+operations.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Identify the functionality that requires additional privileges, such
+as access to privileged operating system resources. Wrap and centralize this functionality
+if possible, and isolate the privileged code as much as possible from other code [REF-76].
+Raise privileges as late as possible, and drop them as soon as possible to avoid CWE-271.
+Avoid weaknesses such as CWE-288 and CWE-420 by protecting all possible communication
+channels that could interact with the privileged code, such as a secondary socket that is
+only intended to be accessed by administrators.::PHASE:Architecture and
+Design:STRATEGY:Attack Surface Reduction:DESCRIPTION:Identify the functionality that
+requires additional privileges, such as access to privileged operating system resources.
+Wrap and centralize this functionality if possible, and isolate the privileged code as
+much as possible from other code [REF-76]. Raise privileges as late as possible, and drop
+them as soon as possible to avoid CWE-271. Avoid weaknesses such as CWE-288 and CWE-420 by
+protecting all possible communication channels that could interact with the privileged
+code, such as a secondary socket that is only intended to be accessed by
+administrators.::PHASE:Implementation:DESCRIPTION:Perform extensive input validation for
+any privileged code that must be exposed to the user and reject anything that does not fit
+your strict requirements.::PHASE:Implementation:DESCRIPTION:When dropping privileges,
+ensure that they have been dropped successfully to avoid CWE-273. As protection mechanisms
+in the environment get stronger, privilege-dropping calls may fail even if it seems like
+they would always succeed.::PHASE:Implementation:DESCRIPTION:If circumstances force you to
+run with extra privileges, then determine the minimum access level necessary. First
+identify the different permissions that the software and its users will need to perform
+their actions, such as file read and write permissions, network socket permissions, and so
+forth. Then explicitly allow those actions while denying all else [REF-76]. Perform
+extensive input validation and canonicalization to minimize the chances of introducing a
+separate vulnerability. This mitigation is much more prone to error than dropping the
+privileges in the first place.::PHASE:Operation System Configuration:STRATEGY:Environment
+Hardening:DESCRIPTION:Ensure that the software runs properly under the United States
+Government Configuration Baseline (USGCB) [REF-199] or an equivalent hardening
+configuration guide, which many organizations use to limit the attack surface and
+potential risk of deployed software.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

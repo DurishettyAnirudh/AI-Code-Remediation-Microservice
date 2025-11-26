@@ -1,0 +1,30 @@
+cwe: CWE-214
+name: Invocation of Process Using Visible Sensitive Information
+languages: unspecified
+tags: Base, Incomplete, Program Invocation
+---
+Short Description:
+A process is invoked with sensitive command-line arguments, environment variables, or
+other elements that can be seen by other processes on the operating system.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data
+
+Language-Agnostic Guidance:
+Many operating systems allow a user to list information about processes that are owned by
+other users. Other users could see information such as command line arguments or
+environment variable settings. When this data contains sensitive information such as
+credentials, it might allow other users to launch an attack against the product or related
+resources.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

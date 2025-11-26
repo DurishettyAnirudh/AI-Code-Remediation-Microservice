@@ -1,0 +1,45 @@
+cwe: CWE-412
+name: Unrestricted Externally Accessible Lock
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product properly checks for the existence of a lock, but the lock can be externally
+controlled or influenced by an actor that is outside of the intended sphere of control.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Implementation:Use any access control that is offered by the functionality that is offering the lock.
+- PHASE:Architecture and Design Implementation:Use unpredictable names or identifiers for the locks. This might not always be possible or feasible.
+- PHASE:Architecture and Design:Consider modifying your code to use non-blocking synchronization methods.
+Don't:
+- Availability:Avoid situations leading toDoS: Resource Consumption (Other):NOTE:When an attacker can control a lock, the program may wait indefinitely until the attacker releases the lock, causing a denial of service to other users of the program. This is especially problematic if there is a blocking operation on the lock.
+
+Language-Agnostic Guidance:
+This prevents the product from acting on associated resources or performing other
+behaviors that are controlled by the presence of the lock. Relevant locks might include an
+exclusive lock or mutex, or modifying a shared resource that is treated as a lock. If the
+lock can be held for an indefinite period of time, then the denial of service could be
+permanent.
+
+::METHOD:White Box:DESCRIPTION:Automated code analysis techniques might not be able to
+reliably detect this weakness, since the application's behavior and general security model
+dictate which resource locks are critical. Interpretation of the weakness might require
+knowledge of the environment, e.g. if the existence of a file is used as a lock, but the
+file is created in a world-writable directory.::
+
+::PHASE:Architecture and Design Implementation:DESCRIPTION:Use any access control that is
+offered by the functionality that is offering the lock.::PHASE:Architecture and Design
+Implementation:DESCRIPTION:Use unpredictable names or identifiers for the locks. This
+might not always be possible or feasible.::PHASE:Architecture and
+Design:DESCRIPTION:Consider modifying your code to use non-blocking synchronization
+methods.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

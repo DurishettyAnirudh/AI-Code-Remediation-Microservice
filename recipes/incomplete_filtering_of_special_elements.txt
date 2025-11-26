@@ -1,0 +1,26 @@
+cwe: CWE-791
+name: Incomplete Filtering of Special Elements
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product receives data from an upstream component, but does not completely filter
+special elements before sending it to a downstream component.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Avoid situations leading toUnexpected State
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

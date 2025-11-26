@@ -1,0 +1,35 @@
+cwe: CWE-940
+name: Improper Verification of Source of a Communication Channel
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product establishes a communication channel to handle an incoming request that has
+been initiated by an actor, but it does not properly verify that the request is coming
+from the expected origin.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Use a mechanism that can validate the identity of the source, such as a certificate, and validate the integrity of data to ensure that it cannot be modified in transit using an Adversary-in-the-Middle (AITM) attack. When designing functionality of actions in the URL scheme, consider whether the action should be accessible to all mobile applications, or if an allowlist of applications to interface with is appropriate.
+Don't:
+- Access Control:Other:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toVaries by Context:NOTE:An attacker can access any functionality that is inadvertently accessible to the source.
+
+Language-Agnostic Guidance:
+When an attacker can successfully establish a communication channel from an untrusted
+origin, the attacker may be able to gain privileges and access unexpected functionality.
+
+::PHASE:Architecture and Design:DESCRIPTION:Use a mechanism that can validate the identity
+of the source, such as a certificate, and validate the integrity of data to ensure that it
+cannot be modified in transit using an Adversary-in-the-Middle (AITM) attack. When
+designing functionality of actions in the URL scheme, consider whether the action should
+be accessible to all mobile applications, or if an allowlist of applications to interface
+with is appropriate.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

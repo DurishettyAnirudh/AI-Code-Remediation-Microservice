@@ -1,0 +1,31 @@
+cwe: CWE-1083
+name: Data Access from Outside Expected Data Manager Component
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product is intended to manage data access through a particular data manager component
+such as a relational or non-SQL database, but it contains code that performs data access
+operations without using that component.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+When the product has a data access component, the design may be intended to handle all
+data access operations through that component. If a data access operation is performed
+outside of that component, then this may indicate a violation of the intended design. This
+issue can prevent the product from running reliably. If the relevant code is reachable by
+an attacker, then this reliability problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

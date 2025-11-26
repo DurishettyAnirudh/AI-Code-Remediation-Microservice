@@ -1,0 +1,28 @@
+cwe: CWE-1052
+name: Excessive Use of Hard-Coded Literals in Initialization
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product initializes a data element using a hard-coded literal that is not a simple
+integer or static constant element.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+This issue makes it more difficult to modify or maintain the product, which indirectly
+affects security by making it more difficult or time-consuming to find and/or fix
+vulnerabilities. It also might make it easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

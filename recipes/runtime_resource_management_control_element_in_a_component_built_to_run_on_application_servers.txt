@@ -1,0 +1,28 @@
+cwe: CWE-1065
+name: Runtime Resource Management Control Element in a Component Built to Run on Application Servers
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product uses deployed components from application servers, but it also uses low-level
+functions/methods for management of resources, instead of the API provided by the
+application server.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+This issue can prevent the product from running reliably. If the relevant code is
+reachable by an attacker, then this reliability problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

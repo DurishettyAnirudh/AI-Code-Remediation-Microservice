@@ -1,0 +1,27 @@
+cwe: CWE-437
+name: Incomplete Model of Endpoint Features
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A product acts as an intermediary or monitor between two or more endpoints, but it does
+not have a complete model of an endpoint's features, behaviors, or state, potentially
+causing the product to perform incorrect actions based on this incomplete model.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Other:Avoid situations leading toUnexpected State:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

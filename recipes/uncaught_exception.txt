@@ -1,0 +1,34 @@
+cwe: CWE-248
+name: Uncaught Exception
+languages: C++, Java, C#
+tags: Base, Draft
+---
+Short Description:
+An exception is thrown from a function, but it is not caught.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Availability:Confidentiality:Avoid situations leading toDoS: Crash, Exit, or Restart:Avoid situations leading toRead Application Data:NOTE:An uncaught exception could cause the system to be placed in a state that could lead to a crash, exposure of sensitive information or other unintended behaviors.
+
+Language-Agnostic Guidance:
+When an exception is not caught, it may cause the program to crash or expose sensitive
+information.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

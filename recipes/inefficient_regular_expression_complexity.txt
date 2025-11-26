@@ -1,0 +1,45 @@
+cwe: CWE-1333
+name: Inefficient Regular Expression Complexity
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product uses a regular expression with an inefficient, possibly exponential worst-case
+computational complexity that consumes excessive CPU cycles.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Use regular expressions that do not support backtracking, e.g. by removing nested quantifiers.:EFFECTIVENESS:High
+- PHASE:System Configuration:Set backtracking limits in the configuration of the regular expression implementation, such as PHP's pcre.backtrack_limit. Also consider limits on execution time for the process.:EFFECTIVENESS:Moderate
+- PHASE:Implementation:Do not use regular expressions with untrusted input. If regular expressions must be used, avoid using backtracking in the expression.:EFFECTIVENESS:High
+- PHASE:Implementation:Limit the length of the input that the regular expression will process.:EFFECTIVENESS:Moderate
+Don't:
+- Availability:Avoid situations leading toDoS: Resource Consumption (CPU):LIKELIHOOD:High
+
+Language-Agnostic Guidance:
+Some regular expression engines have a feature called backtracking. If the token cannot
+match, the engine backtracks to a position that may result in a different token that can
+match. Backtracking becomes a weakness if all of these conditions are met: The number of
+possible backtracking attempts are exponential relative to the length of the input. The
+input can fail to match the regular expression. The input can be long enough. Attackers
+can create crafted inputs that intentionally cause the regular expression to use excessive
+backtracking in a way that causes the CPU consumption to spike.
+
+::PHASE:Architecture and Design:DESCRIPTION:Use regular expressions that do not support
+backtracking, e.g. by removing nested quantifiers.:EFFECTIVENESS:High::PHASE:System
+Configuration:DESCRIPTION:Set backtracking limits in the configuration of the regular
+expression implementation, such as PHP's pcre.backtrack_limit. Also consider limits on
+execution time for the
+process.:EFFECTIVENESS:Moderate::PHASE:Implementation:DESCRIPTION:Do not use regular
+expressions with untrusted input. If regular expressions must be used, avoid using
+backtracking in the expression.:EFFECTIVENESS:High::PHASE:Implementation:DESCRIPTION:Limit
+the length of the input that the regular expression will process.:EFFECTIVENESS:Moderate::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

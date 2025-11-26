@@ -1,0 +1,29 @@
+cwe: CWE-1122
+name: Excessive Halstead Complexity
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The code is structured in a way that a Halstead complexity measure exceeds a desirable
+maximum.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+A variety of Halstead complexity measures exist, such as program vocabulary size or
+volume. This issue makes it more difficult to understand and/or maintain the product,
+which indirectly affects security by making it more difficult or time-consuming to find
+and/or fix vulnerabilities. It also might make it easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

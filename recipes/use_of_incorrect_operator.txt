@@ -1,0 +1,33 @@
+cwe: CWE-480
+name: Use of Incorrect Operator
+languages: C, C++, Perl
+tags: Base, Draft
+---
+Short Description:
+The product accidentally uses the wrong operator, which changes the logic in security-
+relevant ways.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toAlter Execution Logic:NOTE:This weakness can cause unintended logic to be executed and other unexpected application behavior.
+
+Language-Agnostic Guidance:
+These types of errors are generally the result of a typo by the programmer.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:This weakness can be found easily using
+static analysis. However in some cases an operator might appear to be incorrect, but is
+actually correct and reflects unusual logic within the program.::METHOD:Manual Static
+Analysis:DESCRIPTION:This weakness can be found easily using static analysis. However in
+some cases an operator might appear to be incorrect, but is actually correct and reflects
+unusual logic within the program.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

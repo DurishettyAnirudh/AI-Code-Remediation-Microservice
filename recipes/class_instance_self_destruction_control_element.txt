@@ -1,0 +1,28 @@
+cwe: CWE-1082
+name: Class Instance Self Destruction Control Element
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The code contains a class instance that calls the method or function to delete or destroy
+itself.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+For example, in C++, delete this will cause the object to delete itself. This issue can
+prevent the product from running reliably. If the relevant code is reachable by an
+attacker, then this reliability problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

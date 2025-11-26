@@ -1,0 +1,31 @@
+cwe: CWE-431
+name: Missing Handler
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A handler is not available or implemented.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Handle all possible situations (e.g. error condition).
+- PHASE:Implementation:If an operation can throw an Exception, implement a handler for that specific exception.
+Don't:
+- Other:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+When an exception is thrown and not caught, the process has given up an opportunity to
+decide if a given failure or event is worth a change in execution.
+
+::PHASE:Implementation:DESCRIPTION:Handle all possible situations (e.g. error
+condition).::PHASE:Implementation:DESCRIPTION:If an operation can throw an Exception,
+implement a handler for that specific exception.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

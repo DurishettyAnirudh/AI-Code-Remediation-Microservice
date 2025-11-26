@@ -1,0 +1,33 @@
+cwe: CWE-360
+name: Trust of System Event Data
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+Security based on event locations are insecure and can be spoofed.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Never trust or rely any of the information in an Event for security.
+Don't:
+- Integrity:Confidentiality:Availability:Access Control:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toExecute Unauthorized Code or Commands:NOTE:If one trusts the system-event information and executes commands based on it, one could potentially take actions based on a spoofed identity.
+
+Language-Agnostic Guidance:
+Events are a messaging system which may provide control data to programs listening for
+events. Events often do not have any type of authentication framework to allow them to be
+verified from a trusted source. Any application, in Windows, on a given desktop can send a
+message to any window on the same desktop. There is no authentication framework for these
+messages. Therefore, any message can be used to manipulate any process on the desktop if
+the process does not check the validity and safeness of those messages.
+
+::PHASE:Architecture and Design:DESCRIPTION:Never trust or rely any of the information in
+an Event for security.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

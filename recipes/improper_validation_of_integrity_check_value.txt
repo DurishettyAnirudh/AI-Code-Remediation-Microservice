@@ -1,0 +1,37 @@
+cwe: CWE-354
+name: Improper Validation of Integrity Check Value
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not validate or incorrectly validates the integrity check values or
+checksums of a message. This may prevent it from detecting if the data has been modified
+or corrupted in transmission.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Ensure that the checksums present in messages are properly checked in accordance with the protocol specification before they are parsed and used.
+Don't:
+- Integrity:Other:Avoid situations leading toModify Application Data:Avoid situations leading toOther:NOTE:Integrity checks usually use a secret key that helps authenticate the data origin. Skipping integrity checking generally opens up the possibility that new data from an invalid source can be injected.
+- Integrity:Other:Avoid situations leading toOther:NOTE:Data that is parsed and used may be corrupted.
+- Non-Repudiation:Other:Avoid situations leading toHide Activities:Avoid situations leading toOther:NOTE:Without a checksum check, it is impossible to determine if any changes have been made to the data after it was sent.
+
+Language-Agnostic Guidance:
+Improper validation of checksums before use results in an unnecessary risk that can easily
+be mitigated. The protocol specification describes the algorithm used for calculating the
+checksum. It is then a simple matter of implementing the calculation and verifying that
+the calculated checksum and the received checksum match. Improper verification of the
+calculated checksum and the received checksum can lead to far greater consequences.
+
+::PHASE:Implementation:DESCRIPTION:Ensure that the checksums present in messages are
+properly checked in accordance with the protocol specification before they are parsed and
+used.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

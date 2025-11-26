@@ -1,0 +1,34 @@
+cwe: CWE-425
+name: Direct Request ('Forced Browsing')
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The web application does not adequately enforce appropriate authorization on all
+restricted URLs, scripts, or files.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Operation:Apply appropriate access control authorizations for each access to all restricted URLs, scripts or files.
+- PHASE:Architecture and Design:Consider using MVC based frameworks such as Struts.
+Don't:
+- Confidentiality:Integrity:Availability:Access Control:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data:Avoid situations leading toExecute Unauthorized Code or Commands:Avoid situations leading toGain Privileges or Assume Identity
+
+Language-Agnostic Guidance:
+Web applications susceptible to direct request attacks often make the false assumption
+that such resources can only be reached through a given navigation path and so only apply
+authorization at certain points in the path.
+
+::PHASE:Architecture and Design Operation:DESCRIPTION:Apply appropriate access control
+authorizations for each access to all restricted URLs, scripts or
+files.::PHASE:Architecture and Design:DESCRIPTION:Consider using MVC based frameworks such
+as Struts.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

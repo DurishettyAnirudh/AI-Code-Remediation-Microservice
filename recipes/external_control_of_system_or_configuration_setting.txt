@@ -1,0 +1,55 @@
+cwe: CWE-15
+name: External Control of System or Configuration Setting
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+One or more system settings or configuration elements can be externally controlled by a
+user.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Separation of Privilege:Compartmentalize the system to have safe areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area. Ensure that appropriate compartmentalization is built into the system design, and the compartmentalization allows for and reinforces privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide the appropriate time to use privileges and the time to drop privileges.
+- PHASE:Implementation Architecture and Design:Because setting manipulation covers a diverse set of functions, any attempt at illustrating it will inevitably be incomplete. Rather than searching for a tight-knit relationship between the functions addressed in the setting manipulation category, take a step back and consider the sorts of system values that an attacker should not be allowed to control.
+- PHASE:Implementation Architecture and Design:In general, do not allow user-provided or otherwise untrusted data to control sensitive values. The leverage that an attacker gains by controlling these values is not always immediately obvious, but do not underestimate the creativity of the attacker.
+Don't:
+- Other:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+Allowing external control of system settings can disrupt service or cause an application
+to behave in unexpected, and potentially malicious ways.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Compartmentalize the system to have safe areas where trust
+boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the
+trust boundary and always be careful when interfacing with a compartment outside of the
+safe area. Ensure that appropriate compartmentalization is built into the system design,
+and the compartmentalization allows for and reinforces privilege separation functionality.
+Architects and designers should rely on the principle of least privilege to decide the
+appropriate time to use privileges and the time to drop privileges.::PHASE:Implementation
+Architecture and Design:DESCRIPTION:Because setting manipulation covers a diverse set of
+functions, any attempt at illustrating it will inevitably be incomplete. Rather than
+searching for a tight-knit relationship between the functions addressed in the setting
+manipulation category, take a step back and consider the sorts of system values that an
+attacker should not be allowed to control.::PHASE:Implementation Architecture and
+Design:DESCRIPTION:In general, do not allow user-provided or otherwise untrusted data to
+control sensitive values. The leverage that an attacker gains by controlling these values
+is not always immediately obvious, but do not underestimate the creativity of the
+attacker.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

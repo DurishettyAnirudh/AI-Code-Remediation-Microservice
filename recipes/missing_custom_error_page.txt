@@ -1,0 +1,26 @@
+cwe: CWE-756
+name: Missing Custom Error Page
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product does not return custom error pages to the user, possibly exposing sensitive
+information.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data:NOTE:Attackers can leverage the additional information provided by a default error page to mount attacks targeted on the framework, database, or other resources used by the application.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

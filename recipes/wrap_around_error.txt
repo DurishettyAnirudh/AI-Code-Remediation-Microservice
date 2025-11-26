@@ -1,0 +1,34 @@
+cwe: CWE-128
+name: Wrap-around Error
+languages: C, C++
+tags: Base, Incomplete
+---
+Short Description:
+Wrap around errors occur whenever a value is incremented past the maximum value for its
+type and therefore wraps around to a very small, negative, or undefined value.
+
+Secure Coding Checklist:
+Do:
+- Requirements specification: The choice could be made to use a language that is not susceptible to these issues.
+- PHASE:Architecture and Design:Provide clear upper and lower bounds on the scale of any protocols designed.
+- PHASE:Implementation:Perform validation on all incremented variables to ensure that they remain within reasonable bounds.
+Don't:
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:Avoid situations leading toDoS: Resource Consumption (CPU):Avoid situations leading toDoS: Resource Consumption (Memory):Avoid situations leading toDoS: Instability:NOTE:This weakness will generally lead to undefined behavior and therefore crashes. In the case of overflows involving loop index variables, the likelihood of infinite loops is also high.
+- Integrity:Avoid situations leading toModify Memory:NOTE:If the value in question is important to data (as opposed to flow), simple data corruption has occurred. Also, if the wrap around results in other conditions such as buffer overflows, further memory corruption may occur.
+- Confidentiality:Availability:Access Control:Avoid situations leading toExecute Unauthorized Code or Commands:Avoid situations leading toBypass Protection Mechanism:NOTE:This weakness can sometimes trigger buffer overflows which can be used to execute arbitrary code. This is usually outside the scope of a program's implicit security policy.
+
+Language-Agnostic Guidance:
+::PHASE::DESCRIPTION:Requirements specification: The choice could be made to use a
+language that is not susceptible to these issues.::PHASE:Architecture and
+Design:DESCRIPTION:Provide clear upper and lower bounds on the scale of any protocols
+designed.::PHASE:Implementation:DESCRIPTION:Perform validation on all incremented
+variables to ensure that they remain within reasonable bounds.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

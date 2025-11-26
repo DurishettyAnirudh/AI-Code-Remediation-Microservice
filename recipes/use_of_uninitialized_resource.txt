@@ -1,0 +1,39 @@
+cwe: CWE-908
+name: Use of Uninitialized Resource
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product uses or accesses a resource that has not been initialized.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Explicitly initialize the resource before use. If this is performed through an API function or standard procedure, follow all required steps.
+- PHASE:Implementation:Pay close attention to complex conditionals that affect initialization, since some branches might not perform the initialization.
+- PHASE:Implementation:Avoid race conditions (CWE-362) during initialization routines.
+- PHASE:Build and Compilation:Run or compile the product with settings that generate warnings about uninitialized variables or data.
+Don't:
+- Confidentiality:Avoid situations leading toRead Memory:Avoid situations leading toRead Application Data:NOTE:When reusing a resource such as memory or a program variable, the original contents of that resource may not be cleared before it is sent to an untrusted party.
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:The uninitialized resource may contain values that cause program flow to change in ways that the programmer did not intend.
+
+Language-Agnostic Guidance:
+When a resource has not been properly initialized, the product may behave unexpectedly.
+This may lead to a crash or invalid memory access, but the consequences vary depending on
+the type of resource and how it is used within the product.
+
+::PHASE:Implementation:DESCRIPTION:Explicitly initialize the resource before use. If this
+is performed through an API function or standard procedure, follow all required
+steps.::PHASE:Implementation:DESCRIPTION:Pay close attention to complex conditionals that
+affect initialization, since some branches might not perform the
+initialization.::PHASE:Implementation:DESCRIPTION:Avoid race conditions (CWE-362) during
+initialization routines.::PHASE:Build and Compilation:DESCRIPTION:Run or compile the
+product with settings that generate warnings about uninitialized variables or data.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

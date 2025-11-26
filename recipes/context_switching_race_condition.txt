@@ -1,0 +1,30 @@
+cwe: CWE-368
+name: Context Switching Race Condition
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A product performs a series of non-atomic actions to switch between contexts that cross
+privilege or other security boundaries, but a race condition allows an attacker to modify
+or misrepresent the product's behavior during the switch.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Confidentiality:Avoid situations leading toModify Application Data:Avoid situations leading toRead Application Data
+
+Language-Agnostic Guidance:
+This is commonly seen in web browser vulnerabilities in which the attacker can perform
+certain actions while the browser is transitioning from a trusted to an untrusted domain,
+or vice versa, and the browser performs the actions on one domain using the trust level
+and resources of the other domain.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

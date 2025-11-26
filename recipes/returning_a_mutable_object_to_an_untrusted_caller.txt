@@ -1,0 +1,35 @@
+cwe: CWE-375
+name: Returning a Mutable Object to an Untrusted Caller
+languages: C, C++, Java, C#
+tags: Base, Draft
+---
+Short Description:
+Sending non-cloned mutable data as a return value may result in that data being altered or
+deleted by the calling function.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Declare returned data which should not be altered as constant or immutable.
+- PHASE:Implementation:Clone all mutable data before returning references to it. This is the preferred mitigation. This way, regardless of what changes are made to the data, a valid copy is retained for use by the class.
+Don't:
+- Access Control:Integrity:Avoid situations leading toModify Memory:NOTE:Potentially data could be tampered with by another function which should not have been tampered with.
+
+Language-Agnostic Guidance:
+In situations where functions return references to mutable data, it is possible that the
+external code which called the function may make changes to the data sent. If this data
+was not previously cloned, the class will then be using modified data which may violate
+assumptions about its internal state.
+
+::PHASE:Implementation:DESCRIPTION:Declare returned data which should not be altered as
+constant or immutable.::PHASE:Implementation:DESCRIPTION:Clone all mutable data before
+returning references to it. This is the preferred mitigation. This way, regardless of what
+changes are made to the data, a valid copy is retained for use by the class.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,26 @@
+cwe: CWE-344
+name: Use of Invariant Value in Dynamically Changing Context
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product uses a constant value, name, or reference, but this value can (or should) vary
+across different environments.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

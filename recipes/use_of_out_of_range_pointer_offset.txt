@@ -1,0 +1,45 @@
+cwe: CWE-823
+name: Use of Out-of-range Pointer Offset
+languages: unspecified
+tags: Base, Incomplete, Memory Management
+---
+Short Description:
+The product performs pointer arithmetic on a valid pointer, but it uses an offset that can
+point outside of the intended range of valid memory locations for the resulting pointer.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Memory:NOTE:If the untrusted pointer is used in a read operation, an attacker might be able to read sensitive portions of memory.
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:If the untrusted pointer references a memory location that is not accessible to the program, or points to a location that is malformed or larger than expected by a read or write operation, the application may terminate unexpectedly.
+- Integrity:Confidentiality:Availability:Avoid situations leading toExecute Unauthorized Code or Commands:Avoid situations leading toModify Memory:NOTE:If the untrusted pointer is used in a function call, or points to unexpected data in a write operation, then code execution may be possible.
+
+Language-Agnostic Guidance:
+While a pointer can contain a reference to any arbitrary memory location, a program
+typically only intends to use the pointer to access limited portions of memory, such as
+contiguous memory used to access an individual array. Programs may use offsets in order to
+access fields or sub-elements stored within structured data. The offset might be out-of-
+range if it comes from an untrusted source, is the result of an incorrect calculation, or
+occurs because of another error. If an attacker can control or influence the offset so
+that it points outside of the intended boundaries of the structure, then the attacker may
+be able to read or write to memory locations that are used elsewhere in the product. As a
+result, the attack might change the state of the product as accessed through program
+variables, cause a crash or instable behavior, and possibly lead to code execution.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,26 @@
+cwe: CWE-351
+name: Insufficient Type Distinction
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not properly distinguish between different types of elements in a way
+that leads to insecure behavior.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toOther
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

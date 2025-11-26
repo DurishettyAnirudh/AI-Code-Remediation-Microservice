@@ -1,0 +1,26 @@
+cwe: CWE-357
+name: Insufficient UI Warning of Dangerous Operations
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The user interface provides a warning to a user regarding dangerous or sensitive
+operations, but the warning is not noticeable enough to warrant attention.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Non-Repudiation:Avoid situations leading toHide Activities
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

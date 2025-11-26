@@ -1,0 +1,30 @@
+cwe: CWE-1104
+name: Use of Unmaintained Third Party Components
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product relies on third-party components that are not actively supported or maintained
+by the original developer or a trusted proxy for the original developer.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+Reliance on components that are no longer maintained can make it difficult or impossible
+to fix significant bugs, vulnerabilities, or quality issues. In effect, unmaintained code
+can become obsolete. This issue makes it more difficult to maintain the product, which
+indirectly affects security by making it more difficult or time-consuming to find and/or
+fix vulnerabilities. It also might make it easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,27 @@
+cwe: CWE-281
+name: Improper Preservation of Permissions
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not preserve permissions or incorrectly preserves permissions when
+copying, restoring, or sharing objects, which can cause them to have less restrictive
+permissions than intended.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,20 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Log and temporary files
+metrics.csv
+prompt.txt
+Last_prompt.txt
+
+# IDE / Editor specific
+.vscode/
+.idea/
+
+# Test payloads
+payload.json
+payloads.json

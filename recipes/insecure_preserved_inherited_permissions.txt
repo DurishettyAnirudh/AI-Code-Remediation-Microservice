@@ -1,0 +1,36 @@
+cwe: CWE-278
+name: Insecure Preserved Inherited Permissions
+languages: unspecified
+tags: Incomplete, Variant
+---
+Short Description:
+A product inherits a set of insecure permissions for an object, e.g. when copying from an
+archive file, without user awareness or involvement.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Operation:Very carefully manage the setting, management, and handling of privileges. Explicitly manage trust zones in the software.
+- PHASE:Architecture and Design:Separation of Privilege:Compartmentalize the system to have safe areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area. Ensure that appropriate compartmentalization is built into the system design, and the compartmentalization allows for and reinforces privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide the appropriate time to use privileges and the time to drop privileges.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data
+
+Language-Agnostic Guidance:
+::PHASE:Architecture and Design Operation:DESCRIPTION:Very carefully manage the setting,
+management, and handling of privileges. Explicitly manage trust zones in the
+software.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Compartmentalize the system to have safe areas where trust
+boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the
+trust boundary and always be careful when interfacing with a compartment outside of the
+safe area. Ensure that appropriate compartmentalization is built into the system design,
+and the compartmentalization allows for and reinforces privilege separation functionality.
+Architects and designers should rely on the principle of least privilege to decide the
+appropriate time to use privileges and the time to drop privileges.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

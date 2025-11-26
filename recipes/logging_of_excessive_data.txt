@@ -1,0 +1,46 @@
+cwe: CWE-779
+name: Logging of Excessive Data
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product logs too much information, making log files hard to process and possibly
+hindering recovery efforts or forensic analysis after an attack.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Suppress large numbers of duplicate log messages and replace them with periodic summaries. For example, syslog may include an entry that states last message repeated X times when recording repeated events.
+- PHASE:Architecture and Design:Support a maximum size for the log file that can be controlled by the administrator. If the maximum size is reached, the admin should be notified. Also, consider reducing functionality of the product. This may result in a denial-of-service to legitimate product users, but it will prevent the product from adversely impacting the entire system.
+- PHASE:Implementation:Adjust configurations appropriately when the product is transitioned from a debug state to production.
+Don't:
+- Availability:Avoid situations leading toDoS: Resource Consumption (CPU):Avoid situations leading toDoS: Resource Consumption (Other):NOTE:Log files can become so large that they consume excessive resources, such as disk and CPU, which can hinder the performance of the system.
+- Non-Repudiation:Avoid situations leading toHide Activities:NOTE:Logging too much information can make the log files of less use to forensics analysts and developers when trying to diagnose a problem or recover from an attack.
+- Non-Repudiation:Avoid situations leading toHide Activities:NOTE:If system administrators are unable to effectively process log files, attempted attacks may go undetected, possibly leading to eventual system compromise.
+
+Language-Agnostic Guidance:
+While logging is a good practice in general, and very high levels of logging are
+appropriate for debugging stages of development, too much logging in a production
+environment might hinder a system administrator's ability to detect anomalous conditions.
+This can provide cover for an attacker while attempting to penetrate a system, clutter the
+audit trail for forensic analysis, or make it more difficult to debug problems in a
+production environment.
+
+::PHASE:Architecture and Design:DESCRIPTION:Suppress large numbers of duplicate log
+messages and replace them with periodic summaries. For example, syslog may include an
+entry that states last message repeated X times when recording repeated
+events.::PHASE:Architecture and Design:DESCRIPTION:Support a maximum size for the log file
+that can be controlled by the administrator. If the maximum size is reached, the admin
+should be notified. Also, consider reducing functionality of the product. This may result
+in a denial-of-service to legitimate product users, but it will prevent the product from
+adversely impacting the entire system.::PHASE:Implementation:DESCRIPTION:Adjust
+configurations appropriately when the product is transitioned from a debug state to
+production.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,47 @@
+cwe: CWE-444
+name: Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product acts as an intermediary HTTP agent (such as a proxy or firewall) in the data
+flow between two entities such as a client and server, but it does not interpret malformed
+HTTP requests or responses in ways that are consistent with how the messages will be
+processed by those entities that are at the ultimate destination.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Use a web server that employs a strict HTTP parsing procedure, such as Apache [REF-433].
+- PHASE:Implementation:Use only SSL communication.
+- PHASE:Implementation:Terminate the client session after each request.
+- PHASE:System Configuration:Turn all pages to non-cacheable.
+Don't:
+- Integrity:Non-Repudiation:Access Control:Avoid situations leading toUnexpected State:Avoid situations leading toHide Activities:Avoid situations leading toBypass Protection Mechanism:NOTE:An attacker could create HTTP messages to exploit a number of weaknesses including 1) the message can trick the web server to associate a URL with another URL's webpage and caching the contents of the webpage (web cache poisoning attack), 2) the message can be structured to bypass the firewall protection mechanisms and gain unauthorized access to a web application, and 3) the message can invoke a script or a page that returns client credentials (similar to a Cross Site Scripting attack).
+
+Language-Agnostic Guidance:
+HTTP requests or responses (messages) can be malformed or unexpected in ways that cause
+web servers or clients to interpret the messages in different ways than intermediary HTTP
+agents such as load balancers, reverse proxies, web caching proxies, application
+firewalls, etc. For example, an adversary may be able to add duplicate or different header
+fields that a client or server might interpret as one set of messages, whereas the
+intermediary might interpret the same sequence of bytes as a different set of messages.
+For example, discrepancies can arise in how to handle duplicate headers like two Transfer-
+encoding (TE) or two Content-length (CL), or the malicious HTTP message will have
+different headers for TE and CL. The inconsistent parsing and interpretation of messages
+can allow the adversary to smuggle a message to the client/server without the intermediary
+being aware of it. This weakness is usually the result of the usage of outdated or
+incompatible HTTP protocol versions in the HTTP agents.
+
+::PHASE:Implementation:DESCRIPTION:Use a web server that employs a strict HTTP parsing
+procedure, such as Apache [REF-433].::PHASE:Implementation:DESCRIPTION:Use only SSL
+communication.::PHASE:Implementation:DESCRIPTION:Terminate the client session after each
+request.::PHASE:System Configuration:DESCRIPTION:Turn all pages to non-cacheable.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

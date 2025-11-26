@@ -1,0 +1,62 @@
+cwe: CWE-272
+name: Least Privilege Violation
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The elevated privilege level required to perform operations such as chroot() should be
+dropped immediately after the operation is performed.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Operation:Very carefully manage the setting, management, and handling of privileges. Explicitly manage trust zones in the software.
+- PHASE:Architecture and Design:Separation of Privilege:Follow the principle of least privilege when assigning access rights to entities in a software system.
+- PHASE:Architecture and Design:Separation of Privilege:Compartmentalize the system to have safe areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area. Ensure that appropriate compartmentalization is built into the system design, and the compartmentalization allows for and reinforces privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide the appropriate time to use privileges and the time to drop privileges.
+Don't:
+- Access Control:Confidentiality:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toRead Application Data:Avoid situations leading toRead Files or Directories:NOTE:An attacker may be able to access resources with the elevated privilege that could not be accessed with the attacker's original privileges. This is particularly likely in conjunction with another flaw, such as a buffer overflow.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Cost effective for partial
+coverage: Compare binary / bytecode to application permission manifest:EFFECTIVENESS:SOAR
+Partial::METHOD:Dynamic Analysis with Automated Results
+Interpretation:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Cost effective for partial coverage: Host-based Vulnerability
+Scanners - Examine configuration for flaws, verifying that audit mechanisms work, ensure
+host configuration meets certain predefined criteria:EFFECTIVENESS:SOAR
+Partial::METHOD:Manual Static Analysis - Source Code:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Highly cost effective:
+Manual Source Code Review (not inspections) Cost effective for partial coverage: Focused
+Manual Spotcheck - Focused manual analysis of source:EFFECTIVENESS:High::METHOD:Automated
+Static Analysis - Source Code:DESCRIPTION:According to SOAR [REF-1479], the following
+detection techniques may be useful: Cost effective for partial coverage: Source code
+Weakness Analyzer Context-configured Source Code Weakness Analyzer:EFFECTIVENESS:SOAR
+Partial::METHOD:Automated Static Analysis:DESCRIPTION:According to SOAR [REF-1479], the
+following detection techniques may be useful: Cost effective for partial coverage:
+Permission Manifest Analysis:EFFECTIVENESS:SOAR Partial::METHOD:Architecture or Design
+Review:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Highly cost effective: Inspection (IEEE 1028 standard) (can apply to requirements,
+design, source code, etc.) Formal Methods / Correct-By-Construction Cost effective for
+partial coverage: Attack Modeling:EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design Operation:DESCRIPTION:Very carefully manage the setting,
+management, and handling of privileges. Explicitly manage trust zones in the
+software.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Follow the principle of least privilege when assigning access rights
+to entities in a software system.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Compartmentalize the system to have safe areas where trust
+boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the
+trust boundary and always be careful when interfacing with a compartment outside of the
+safe area. Ensure that appropriate compartmentalization is built into the system design,
+and the compartmentalization allows for and reinforces privilege separation functionality.
+Architects and designers should rely on the principle of least privilege to decide the
+appropriate time to use privileges and the time to drop privileges.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

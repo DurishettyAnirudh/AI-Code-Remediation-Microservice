@@ -1,0 +1,26 @@
+cwe: CWE-303
+name: Incorrect Implementation of Authentication Algorithm
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The requirements for the product dictate the use of an established authentication
+algorithm, but the implementation of the algorithm is incorrect.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism
+
+Language-Agnostic Guidance:
+This incorrect implementation may allow authentication to be bypassed.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

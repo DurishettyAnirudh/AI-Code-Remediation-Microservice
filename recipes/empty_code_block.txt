@@ -1,0 +1,30 @@
+cwe: CWE-1071
+name: Empty Code Block
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The source code contains a block that does not contain any code, i.e., the block is empty.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+Empty code blocks can occur in the bodies of conditionals, function or method definitions,
+exception handlers, etc. While an empty code block might be intentional, it might also
+indicate incomplete implementation, accidental code deletion, unexpected macro expansion,
+etc. For some programming languages and constructs, an empty block might be allowed by the
+syntax, but the lack of any behavior within the block might violate a convention or API in
+such a way that it is an error.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

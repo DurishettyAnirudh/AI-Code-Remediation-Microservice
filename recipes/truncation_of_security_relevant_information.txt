@@ -1,0 +1,26 @@
+cwe: CWE-222
+name: Truncation of Security-relevant Information
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product truncates the display, recording, or processing of security-relevant
+information in a way that can obscure the source or nature of an attack.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Non-Repudiation:Avoid situations leading toHide Activities:NOTE:The source of an attack will be difficult or impossible to determine. This can allow attacks to the system to continue without notice.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

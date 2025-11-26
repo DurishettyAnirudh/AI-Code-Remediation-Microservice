@@ -1,0 +1,26 @@
+cwe: CWE-229
+name: Improper Handling of Values
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product does not properly handle when the expected number of values for parameters,
+fields, or arguments is not provided in input, or if those values are undefined.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Avoid situations leading toUnexpected State
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

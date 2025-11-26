@@ -1,0 +1,26 @@
+cwe: CWE-349
+name: Acceptance of Extraneous Untrusted Data With Trusted Data
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product, when processing trusted data, accepts any untrusted data that is also
+included with the trusted data, treating the untrusted data as if it were trusted.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Integrity:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toModify Application Data:NOTE:An attacker could package untrusted data with trusted data to bypass protection mechanisms to gain access to and possibly modify sensitive data.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

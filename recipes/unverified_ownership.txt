@@ -1,0 +1,31 @@
+cwe: CWE-283
+name: Unverified Ownership
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not properly verify that a critical resource is owned by the proper
+entity.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Operation:Very carefully manage the setting, management, and handling of privileges. Explicitly manage trust zones in the software.
+- PHASE:Architecture and Design:Separation of Privilege:Consider following the principle of separation of privilege. Require multiple conditions to be met before permitting access to a system resource.
+Don't:
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity:NOTE:An attacker could gain unauthorized access to system resources.
+
+Language-Agnostic Guidance:
+::PHASE:Architecture and Design Operation:DESCRIPTION:Very carefully manage the setting,
+management, and handling of privileges. Explicitly manage trust zones in the
+software.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Consider following the principle of separation of privilege. Require
+multiple conditions to be met before permitting access to a system resource.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

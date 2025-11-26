@@ -1,0 +1,28 @@
+cwe: CWE-910
+name: Use of Expired File Descriptor
+languages: C, C++
+tags: Base, Incomplete
+---
+Short Description:
+The product uses or accesses a file descriptor after it has been closed.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Files or Directories:NOTE:The program could read data from the wrong file.
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:Accessing a file descriptor that has been closed can cause a crash.
+
+Language-Agnostic Guidance:
+After a file descriptor for a particular file or device has been released, it can be
+reused. The code might not write to the original file, since the reused file descriptor
+might reference a different file or device.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

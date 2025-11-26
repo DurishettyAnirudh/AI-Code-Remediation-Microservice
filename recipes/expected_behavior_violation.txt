@@ -1,0 +1,25 @@
+cwe: CWE-440
+name: Expected Behavior Violation
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A feature, API, or function does not perform according to its specification.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toQuality Degradation:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,27 @@
+cwe: CWE-420
+name: Unprotected Alternate Channel
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product protects a primary channel, but it does not use the same level of protection
+for an alternate channel.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Identify all alternate channels and use the same protection mechanisms that are used for the primary channels.
+Don't:
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toBypass Protection Mechanism
+
+Language-Agnostic Guidance:
+::PHASE:Architecture and Design:DESCRIPTION:Identify all alternate channels and use the
+same protection mechanisms that are used for the primary channels.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

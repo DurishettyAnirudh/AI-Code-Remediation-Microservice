@@ -1,0 +1,31 @@
+cwe: CWE-115
+name: Misinterpretation of Input
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product misinterprets an input, whether from an attacker or another product, in a
+security-relevant fashion.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Avoid situations leading toUnexpected State
+
+Language-Agnostic Guidance:
+::METHOD:Fuzzing:DESCRIPTION:Fuzz testing (fuzzing) is a powerful technique for generating
+large numbers of diverse inputs - either randomly or algorithmically - and dynamically
+invoking the code with those inputs. Even with random inputs, it is often capable of
+generating unexpected results such as crashes, memory corruption, or resource consumption.
+Fuzzing effectively produces repeatable test cases that clearly indicate bugs, which helps
+developers to diagnose the issues.:EFFECTIVENESS:High::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,35 @@
+cwe: CWE-826
+name: Premature Release of Resource During Expected Lifetime
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product releases a resource that is still intended to be used by itself or another
+actor.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data:Avoid situations leading toRead Memory:NOTE:If the released resource is subsequently reused or reallocated, then a read operation on the original resource might access sensitive data that is associated with a different user or entity.
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:When the resource is released, the software might modify some of its structure, or close associated channels (such as a file descriptor). When the software later accesses the resource as if it is valid, the resource might not be in an expected state, leading to resultant errors that may lead to a crash.
+- Integrity:Confidentiality:Availability:Avoid situations leading toExecute Unauthorized Code or Commands:Avoid situations leading toModify Application Data:Avoid situations leading toModify Memory:NOTE:When the resource is released, the software might modify some of its structure. This might affect logic in the sections of code that still assume the resource is active. If the released resource is related to memory and is used in a function call, or points to unexpected data in a write operation, then code execution may be possible upon subsequent accesses.
+
+Language-Agnostic Guidance:
+This weakness focuses on errors in which the product should not release a resource, but
+performs the release anyway. This is different than a weakness in which the product
+releases a resource at the appropriate time, but it maintains a reference to the resource,
+which it later accesses. For this weakness, the resource should still be valid upon the
+subsequent access. When a product releases a resource that is still being used, it is
+possible that operations will still be taken on this resource, which may have been
+repurposed in the meantime, leading to issues similar to CWE-825. Consequences may include
+denial of service, information exposure, or code execution.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

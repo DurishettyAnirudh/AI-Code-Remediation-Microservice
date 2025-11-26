@@ -1,0 +1,29 @@
+cwe: CWE-1090
+name: Method Containing Access of a Member Element from Another Class
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A method for a class performs an operation that directly accesses a member element from
+another class.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+This issue suggests poor encapsulation and makes it more difficult to understand and
+maintain the product, which indirectly affects security by making it more difficult or
+time-consuming to find and/or fix vulnerabilities. It also might make it easier to
+introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

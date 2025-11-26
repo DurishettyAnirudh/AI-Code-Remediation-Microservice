@@ -1,0 +1,40 @@
+cwe: CWE-366
+name: Race Condition within a Thread
+languages: C, C++, Java, C#
+tags: Base, Draft
+---
+Short Description:
+If two threads of execution use a resource simultaneously, there exists the possibility
+that resources may be used while invalid, in turn making the state of execution undefined.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Use locking functionality. This is the recommended solution. Implement some form of locking mechanism around code which alters or reads persistent data in a multithreaded environment.
+- PHASE:Architecture and Design:Create resource-locking validation checks. If no inherent locking mechanisms exist, use flags and signals to enforce your own blocking scheme when resources are being used by other threads of execution.
+Don't:
+- Integrity:Other:Avoid situations leading toAlter Execution Logic:Avoid situations leading toUnexpected State:NOTE:The main problem is that -- if a lock is overcome -- data could be altered in a bad state.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design:DESCRIPTION:Use locking functionality. This is the
+recommended solution. Implement some form of locking mechanism around code which alters or
+reads persistent data in a multithreaded environment.::PHASE:Architecture and
+Design:DESCRIPTION:Create resource-locking validation checks. If no inherent locking
+mechanisms exist, use flags and signals to enforce your own blocking scheme when resources
+are being used by other threads of execution.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

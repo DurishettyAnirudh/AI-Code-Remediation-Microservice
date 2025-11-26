@@ -1,0 +1,26 @@
+cwe: CWE-439
+name: Behavioral Change in New Version or Environment
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A's behavior or functionality changes with a new version of A, or a new environment, which
+is not known (or manageable) by B.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toQuality Degradation:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

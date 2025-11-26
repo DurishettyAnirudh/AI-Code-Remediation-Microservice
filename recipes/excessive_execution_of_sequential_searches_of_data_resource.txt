@@ -1,0 +1,27 @@
+cwe: CWE-1067
+name: Excessive Execution of Sequential Searches of Data Resource
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product contains a data query against an SQL table or view that is configured in a way
+that does not utilize an index and may cause sequential searches to be performed.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Performance
+
+Language-Agnostic Guidance:
+This issue can make the product perform more slowly. If the relevant code is reachable by
+an attacker, then this performance problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

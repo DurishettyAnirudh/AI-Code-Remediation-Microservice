@@ -1,0 +1,29 @@
+cwe: CWE-1057
+name: Data Access Operations Outside of Expected Data Manager Component
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product uses a dedicated, central data manager component as required by design, but it
+contains code that performs data-access operations that do not use this data manager.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Performance
+
+Language-Agnostic Guidance:
+This issue can make the product perform more slowly than intended, since the intended
+central data manager may have been explicitly optimized for performance or other quality
+characteristics. If the relevant code is reachable by an attacker, then this performance
+problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

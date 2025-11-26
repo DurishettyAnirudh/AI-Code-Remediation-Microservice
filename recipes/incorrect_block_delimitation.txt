@@ -1,0 +1,40 @@
+cwe: CWE-483
+name: Incorrect Block Delimitation
+languages: C, C++
+tags: Base, Draft
+---
+Short Description:
+The code does not explicitly delimit a block that is intended to contain 2 or more
+statements, creating a logic error.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Always use explicit block delimitation and use static-analysis technologies to enforce this practice.
+Don't:
+- Confidentiality:Integrity:Availability:Avoid situations leading toAlter Execution Logic:NOTE:This is a general logic error which will often lead to obviously-incorrect behaviors that are quickly noticed and fixed. In lightly tested or untested code, this error may be introduced it into a production environment and provide additional attack vectors by creating a control flow path leading to an unexpected state in the application. The consequences will depend on the types of behaviors that are being incorrectly executed.
+
+Language-Agnostic Guidance:
+In some languages, braces (or other delimiters) are optional for blocks. When the
+delimiter is omitted, it is possible to insert a logic error in which a statement is
+thought to be in a block but is not. In some cases, the logic error can have security
+implications.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Implementation:DESCRIPTION:Always use explicit block delimitation and use static-
+analysis technologies to enforce this practice.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

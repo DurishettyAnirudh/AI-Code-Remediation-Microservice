@@ -1,0 +1,26 @@
+cwe: CWE-392
+name: Missing Report of Error Condition
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product encounters an error but does not provide a status code or return value to
+indicate that an error has occurred.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Other:Avoid situations leading toVaries by Context:Avoid situations leading toUnexpected State:NOTE:Errors that are not properly reported could place the system in an unexpected state that could lead to unintended behaviors.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

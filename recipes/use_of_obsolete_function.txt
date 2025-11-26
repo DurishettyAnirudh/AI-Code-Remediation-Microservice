@@ -1,0 +1,61 @@
+cwe: CWE-477
+name: Use of Obsolete Function
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The code uses deprecated or obsolete functions, which suggests that the code has not been
+actively reviewed or maintained.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Refer to the documentation for the obsolete function in order to determine why it is deprecated or obsolete and to learn about alternative ways to achieve the same functionality.
+- PHASE:Requirements:Consider seriously the security implications of using an obsolete function. Consider using alternate functions.
+Don't:
+- Other:Avoid situations leading toQuality Degradation
+
+Language-Agnostic Guidance:
+As programming languages evolve, functions occasionally become obsolete due to: Advances
+in the language Improved understanding of how operations should be performed effectively
+and securely Changes in the conventions that govern certain operations Functions that are
+removed are usually replaced by newer counterparts that perform the same task in some
+different and hopefully improved way.
+
+::METHOD:Automated Static Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Highly cost effective:
+Binary / Bytecode Quality Analysis Cost effective for partial coverage: Bytecode Weakness
+Analysis - including disassembler + source code weakness
+analysis:EFFECTIVENESS:High::METHOD:Manual Static Analysis - Binary or
+Bytecode:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may
+be useful: Cost effective for partial coverage: Binary / Bytecode disassembler - then use
+manual analysis for vulnerabilities & anomalies:EFFECTIVENESS:SOAR Partial::METHOD:Dynamic
+Analysis with Manual Results Interpretation:DESCRIPTION:According to SOAR [REF-1479], the
+following detection techniques may be useful: Highly cost effective:
+Debugger:EFFECTIVENESS:High::METHOD:Manual Static Analysis - Source
+Code:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Highly cost effective: Manual Source Code Review (not inspections) Cost effective
+for partial coverage: Focused Manual Spotcheck - Focused manual analysis of
+source:EFFECTIVENESS:High::METHOD:Automated Static Analysis - Source
+Code:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Highly cost effective: Source Code Quality Analyzer Source code Weakness Analyzer
+Context-configured Source Code Weakness Analyzer:EFFECTIVENESS:High::METHOD:Automated
+Static Analysis:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Highly cost effective: Origin
+Analysis:EFFECTIVENESS:High::METHOD:Architecture or Design Review:DESCRIPTION:According to
+SOAR [REF-1479], the following detection techniques may be useful: Highly cost effective:
+Formal Methods / Correct-By-Construction Inspection (IEEE 1028 standard) (can apply to
+requirements, design, source code, etc.):EFFECTIVENESS:High::
+
+::PHASE:Implementation:DESCRIPTION:Refer to the documentation for the obsolete function in
+order to determine why it is deprecated or obsolete and to learn about alternative ways to
+achieve the same functionality.::PHASE:Requirements:DESCRIPTION:Consider seriously the
+security implications of using an obsolete function. Consider using alternate functions.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

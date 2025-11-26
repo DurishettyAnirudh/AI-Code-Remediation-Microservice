@@ -1,0 +1,26 @@
+cwe: CWE-833
+name: Deadlock
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product contains multiple threads or executable segments that are waiting for each
+other to release a necessary lock, resulting in deadlock.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Availability:Avoid situations leading toDoS: Resource Consumption (CPU):Avoid situations leading toDoS: Resource Consumption (Other):Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:Each thread of execution will hang and prevent tasks from completing. In some cases, CPU consumption may occur if a lock check occurs in a tight loop.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

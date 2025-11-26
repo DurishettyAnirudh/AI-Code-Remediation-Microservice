@@ -1,0 +1,37 @@
+cwe: CWE-454
+name: External Initialization of Trusted Variables or Data Stores
+languages: PHP
+tags: Base, Draft
+---
+Short Description:
+The product initializes critical internal variables or data stores using inputs that can
+be modified by untrusted actors.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Input Validation:A product system should be reluctant to trust variables that have been initialized outside of its trust boundary. Ensure adequate checking (e.g. input validation) is performed when relying on input from outside a trust boundary.
+- PHASE:Architecture and Design:Avoid any external control of variables. If necessary, restrict the variables that can be modified using an allowlist, and use a different namespace or naming convention if possible.
+Don't:
+- Integrity:Avoid situations leading toModify Application Data:NOTE:An attacker could gain access to and modify sensitive data or system information.
+
+Language-Agnostic Guidance:
+A product system should be reluctant to trust variables that have been initialized outside
+of its trust boundary, especially if they are initialized by users. The variables may have
+been initialized incorrectly. If an attacker can initialize the variable, then they can
+influence what the vulnerable system will do.
+
+::PHASE:Implementation:STRATEGY:Input Validation:DESCRIPTION:A product system should be
+reluctant to trust variables that have been initialized outside of its trust boundary.
+Ensure adequate checking (e.g. input validation) is performed when relying on input from
+outside a trust boundary.::PHASE:Architecture and Design:DESCRIPTION:Avoid any external
+control of variables. If necessary, restrict the variables that can be modified using an
+allowlist, and use a different namespace or naming convention if possible.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

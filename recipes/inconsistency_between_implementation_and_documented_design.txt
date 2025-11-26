@@ -1,0 +1,28 @@
+cwe: CWE-1068
+name: Inconsistency Between Implementation and Documented Design
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The implementation of the product is not consistent with the design as described within
+the relevant documentation.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Never trust unbounded input and do not bypass centralized validation.
+
+Language-Agnostic Guidance:
+This issue makes it more difficult to maintain the product due to inconsistencies, which
+indirectly affects security by making it more difficult or time-consuming to find and/or
+fix vulnerabilities. It also might make it easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

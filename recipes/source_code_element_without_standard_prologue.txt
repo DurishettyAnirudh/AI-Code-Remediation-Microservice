@@ -1,0 +1,32 @@
+cwe: CWE-1115
+name: Source Code Element without Standard Prologue
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The source code contains elements such as source files that do not consistently provide a
+prologue or header that has been standardized for the project.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Never trust unbounded input and do not bypass centralized validation.
+
+Language-Agnostic Guidance:
+The lack of a prologue can make it more difficult to accurately and quickly understand the
+associated code. Standard prologues or headers may contain information such as module
+name, version number, author, date, purpose, function, assumptions, limitations, accuracy
+considerations, etc. This issue makes it more difficult to maintain the product due to
+insufficient analyzability, which indirectly affects security by making it more difficult
+or time-consuming to find and/or fix vulnerabilities. It also might make it easier to
+introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

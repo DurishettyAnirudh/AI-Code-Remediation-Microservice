@@ -1,0 +1,29 @@
+cwe: CWE-1056
+name: Invokable Control Element with Variadic Parameters
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A named-callable or method control element has a signature that supports a variable
+(variadic) number of parameters or arguments.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+This issue can prevent the product from running reliably. If the relevant code is
+reachable by an attacker, then this reliability problem might introduce a vulnerability.
+With variadic arguments, it can be difficult or inefficient for manual analysis to be
+certain of which function/method is being invoked.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

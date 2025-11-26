@@ -1,0 +1,29 @@
+cwe: CWE-334
+name: Small Space of Random Values
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The number of possible random values is smaller than needed by the product, making it more
+susceptible to brute force attacks.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Requirements:Libraries or Frameworks:Use products or modules that conform to FIPS 140-2 [REF-267] to avoid obvious entropy problems. Consult FIPS 140-2 Annex C (Approved Random Number Generators).
+Don't:
+- Access Control:Other:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toOther:NOTE:An attacker could easily guess the values used. This could lead to unauthorized access to a system if the seed is used for authentication and authorization.
+
+Language-Agnostic Guidance:
+::PHASE:Architecture and Design Requirements:STRATEGY:Libraries or
+Frameworks:DESCRIPTION:Use products or modules that conform to FIPS 140-2 [REF-267] to
+avoid obvious entropy problems. Consult FIPS 140-2 Annex C (Approved Random Number
+Generators).::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

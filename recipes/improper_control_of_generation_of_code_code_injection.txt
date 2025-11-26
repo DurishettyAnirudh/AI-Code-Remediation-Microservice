@@ -1,0 +1,94 @@
+cwe: CWE-94
+name: Improper Control of Generation of Code ('Code Injection')
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product constructs all or part of a code segment using externally-influenced input
+from an upstream component, but it does not neutralize or incorrectly neutralizes special
+elements that could modify the syntax or behavior of the intended code segment.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Refactor your program so that you do not have to dynamically generate code.
+- PHASE:Architecture and Design:Run your code in a jail or similar sandbox environment that enforces strict boundaries between the process and the operating system. This may effectively restrict which code can be executed by your product. Examples include the Unix chroot jail and AppArmor. In general, managed code may provide some protection. This may not be a feasible solution, and it only limits the impact to the operating system; the rest of your application may still be subject to compromise. Be careful to avoid CWE-243 and other weaknesses related to jails.
+- PHASE:Implementation:Input Validation:Assume all input is malicious. Use an accept known good input validation strategy, i.e., use a list of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does. When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, boat may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as red or blue. Do not rely exclusively on looking for malicious or malformed inputs. This is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, denylists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright. To reduce the likelihood of code injection, use stringent allowlists that limit which constructs are allowed. If you are dynamically constructing code that invokes a function, then verifying that the input is alphanumeric might be insufficient. An attacker might still be able to reference a dangerous function that you did not intend to allow, such as system(), exec(), or exit().
+- PHASE:Testing:Use automated static analysis tools that target this type of weakness. Many modern techniques use data flow analysis to minimize the number of false positives. This is not a perfect solution, since 100% accuracy and coverage are not feasible.
+- PHASE:Testing:Use dynamic tools and techniques that interact with the product using large test suites with many diverse inputs, such as fuzz testing (fuzzing), robustness testing, and fault injection. The product's operation may slow down, but it should not become unstable, crash, or generate incorrect results.
+- PHASE:Operation:Compilation or Build Hardening:Run the code in an environment that performs automatic taint propagation and prevents any command execution that uses tainted variables, such as Perl's -T switch. This will force the program to perform validation steps that remove the taint, although you must be careful to correctly validate your inputs so that you do not accidentally mark dangerous inputs as untainted (see CWE-183 and CWE-184).
+- PHASE:Operation:Environment Hardening:Run the code in an environment that performs automatic taint propagation and prevents any command execution that uses tainted variables, such as Perl's -T switch. This will force the program to perform validation steps that remove the taint, although you must be careful to correctly validate your inputs so that you do not accidentally mark dangerous inputs as untainted (see CWE-183 and CWE-184).
+- PHASE:Implementation:For Python programs, it is frequently encouraged to use the ast.literal_eval() function instead of eval, since it is intentionally designed to avoid executing code. However, an adversary could still cause excessive memory or stack consumption via deeply nested structures [REF-1372], so the python documentation discourages use of ast.literal_eval() on untrusted data [REF-1373].:EFFECTIVENESS:Discouraged Common Practice
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism:NOTE:In some cases, injectable code controls authentication; this may lead to a remote vulnerability.
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity:NOTE:Injected code can access resources that the attacker is directly prevented from accessing.
+- Integrity:Confidentiality:Availability:Avoid situations leading toExecute Unauthorized Code or Commands:NOTE:When a product allows a user's input to contain code syntax, it might be possible for an attacker to craft the code in such a way that it will alter the intended control flow of the product. As a result, code injection can often result in the execution of arbitrary code. Code injection attacks can also lead to loss of data integrity in nearly all cases, since the control-plane data injected is always incidental to data recall or writing.
+- Non-Repudiation:Avoid situations leading toHide Activities:NOTE:Often the actions performed by injected control code are unlogged.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design:DESCRIPTION:Refactor your program so that you do not have
+to dynamically generate code.::PHASE:Architecture and Design:DESCRIPTION:Run your code in
+a jail or similar sandbox environment that enforces strict boundaries between the process
+and the operating system. This may effectively restrict which code can be executed by your
+product. Examples include the Unix chroot jail and AppArmor. In general, managed code may
+provide some protection. This may not be a feasible solution, and it only limits the
+impact to the operating system; the rest of your application may still be subject to
+compromise. Be careful to avoid CWE-243 and other weaknesses related to
+jails.::PHASE:Implementation:STRATEGY:Input Validation:DESCRIPTION:Assume all input is
+malicious. Use an accept known good input validation strategy, i.e., use a list of
+acceptable inputs that strictly conform to specifications. Reject any input that does not
+strictly conform to specifications, or transform it into something that does. When
+performing input validation, consider all potentially relevant properties, including
+length, type of input, the full range of acceptable values, missing or extra inputs,
+syntax, consistency across related fields, and conformance to business rules. As an
+example of business rule logic, boat may be syntactically valid because it only contains
+alphanumeric characters, but it is not valid if the input is only expected to contain
+colors such as red or blue. Do not rely exclusively on looking for malicious or malformed
+inputs. This is likely to miss at least one undesirable input, especially if the code's
+environment changes. This can give attackers enough room to bypass the intended
+validation. However, denylists can be useful for detecting potential attacks or
+determining which inputs are so malformed that they should be rejected outright. To reduce
+the likelihood of code injection, use stringent allowlists that limit which constructs are
+allowed. If you are dynamically constructing code that invokes a function, then verifying
+that the input is alphanumeric might be insufficient. An attacker might still be able to
+reference a dangerous function that you did not intend to allow, such as system(), exec(),
+or exit().::PHASE:Testing:DESCRIPTION:Use automated static analysis tools that target this
+type of weakness. Many modern techniques use data flow analysis to minimize the number of
+false positives. This is not a perfect solution, since 100% accuracy and coverage are not
+feasible.::PHASE:Testing:DESCRIPTION:Use dynamic tools and techniques that interact with
+the product using large test suites with many diverse inputs, such as fuzz testing
+(fuzzing), robustness testing, and fault injection. The product's operation may slow down,
+but it should not become unstable, crash, or generate incorrect
+results.::PHASE:Operation:STRATEGY:Compilation or Build Hardening:DESCRIPTION:Run the code
+in an environment that performs automatic taint propagation and prevents any command
+execution that uses tainted variables, such as Perl's -T switch. This will force the
+program to perform validation steps that remove the taint, although you must be careful to
+correctly validate your inputs so that you do not accidentally mark dangerous inputs as
+untainted (see CWE-183 and CWE-184).::PHASE:Operation:STRATEGY:Environment
+Hardening:DESCRIPTION:Run the code in an environment that performs automatic taint
+propagation and prevents any command execution that uses tainted variables, such as Perl's
+-T switch. This will force the program to perform validation steps that remove the taint,
+although you must be careful to correctly validate your inputs so that you do not
+accidentally mark dangerous inputs as untainted (see CWE-183 and
+CWE-184).::PHASE:Implementation:DESCRIPTION:For Python programs, it is frequently
+encouraged to use the ast.literal_eval() function instead of eval, since it is
+intentionally designed to avoid executing code. However, an adversary could still cause
+excessive memory or stack consumption via deeply nested structures [REF-1372], so the
+python documentation discourages use of ast.literal_eval() on untrusted data
+[REF-1373].:EFFECTIVENESS:Discouraged Common Practice::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

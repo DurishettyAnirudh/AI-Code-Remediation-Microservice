@@ -1,0 +1,44 @@
+cwe: CWE-463
+name: Deletion of Data Structure Sentinel
+languages: C, C++
+tags: Base, Incomplete
+---
+Short Description:
+The accidental deletion of a data-structure sentinel can cause serious programming logic
+problems.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Use an abstraction library to abstract away risky APIs. Not a complete solution.
+- PHASE:Build and Compilation:Compilation or Build Hardening:Run or compile the software using features or extensions that automatically provide a protection mechanism that mitigates or eliminates buffer overflows. For example, certain compilers and extensions provide automatic buffer overflow detection mechanisms that are built into the compiled code. Examples include the Microsoft Visual Studio /GS flag, Fedora/Red Hat FORTIFY_SOURCE GCC flag, StackGuard, and ProPolice.:EFFECTIVENESS:Defense in Depth
+- PHASE:Operation:Use OS-level preventative functionality. Not a complete solution.
+Don't:
+- Availability:Other:Avoid situations leading toOther:NOTE:Generally this error will cause the data structure to not work properly.
+- Authorization:Other:Avoid situations leading toOther:NOTE:If a control character, such as NULL is removed, one may cause resource access control problems.
+
+Language-Agnostic Guidance:
+Often times data-structure sentinels are used to mark structure of the data structure. A
+common example of this is the null character at the end of strings. Another common example
+is linked lists which may contain a sentinel to mark the end of the list. It is dangerous
+to allow this type of control data to be easily accessible. Therefore, it is important to
+protect from the deletion or modification outside of some wrapper interface which provides
+safety.
+
+::PHASE:Architecture and Design:DESCRIPTION:Use an abstraction library to abstract away
+risky APIs. Not a complete solution.::PHASE:Build and Compilation:STRATEGY:Compilation or
+Build Hardening:DESCRIPTION:Run or compile the software using features or extensions that
+automatically provide a protection mechanism that mitigates or eliminates buffer
+overflows. For example, certain compilers and extensions provide automatic buffer overflow
+detection mechanisms that are built into the compiled code. Examples include the Microsoft
+Visual Studio /GS flag, Fedora/Red Hat FORTIFY_SOURCE GCC flag, StackGuard, and
+ProPolice.:EFFECTIVENESS:Defense in Depth::PHASE:Operation:DESCRIPTION:Use OS-level
+preventative functionality. Not a complete solution.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

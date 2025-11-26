@@ -1,0 +1,26 @@
+cwe: CWE-394
+name: Unexpected Status Code or Return Value
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not properly check when a function or operation returns a value that is
+legitimate for the function, but is not expected by the product.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Other:Avoid situations leading toUnexpected State:Avoid situations leading toAlter Execution Logic
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

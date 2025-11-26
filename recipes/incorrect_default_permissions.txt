@@ -1,0 +1,66 @@
+cwe: CWE-276
+name: Incorrect Default Permissions
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+During installation, installed file permissions are set to allow anyone to modify those
+files.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Operation:The architecture needs to access and modification attributes for files to only those users who actually require those actions.
+- PHASE:Architecture and Design:Separation of Privilege:Compartmentalize the system to have safe areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area. Ensure that appropriate compartmentalization is built into the system design, and the compartmentalization allows for and reinforces privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide the appropriate time to use privileges and the time to drop privileges.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Cost effective for partial
+coverage: Inter-application Flow Analysis:EFFECTIVENESS:SOAR Partial::METHOD:Manual Static
+Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR [REF-1479], the following
+detection techniques may be useful: Cost effective for partial coverage: Binary / Bytecode
+disassembler - then use manual analysis for vulnerabilities & anomalies:EFFECTIVENESS:SOAR
+Partial::METHOD:Dynamic Analysis with Automated Results
+Interpretation:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Cost effective for partial coverage: Host-based Vulnerability
+Scanners - Examine configuration for flaws, verifying that audit mechanisms work, ensure
+host configuration meets certain predefined criteria Web Application Scanner Web Services
+Scanner Database Scanners:EFFECTIVENESS:SOAR Partial::METHOD:Dynamic Analysis with Manual
+Results Interpretation:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Highly cost effective: Host Application Interface Scanner Cost
+effective for partial coverage: Fuzz Tester Framework-based Fuzzer Automated Monitored
+Execution Forced Path Execution:EFFECTIVENESS:High::METHOD:Manual Static Analysis - Source
+Code:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Highly cost effective: Manual Source Code Review (not inspections) Cost effective
+for partial coverage: Focused Manual Spotcheck - Focused manual analysis of
+source:EFFECTIVENESS:High::METHOD:Automated Static Analysis - Source
+Code:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Cost effective for partial coverage: Context-configured Source Code Weakness
+Analyzer:EFFECTIVENESS:SOAR Partial::METHOD:Automated Static
+Analysis:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may
+be useful: Cost effective for partial coverage: Configuration Checker:EFFECTIVENESS:SOAR
+Partial::METHOD:Architecture or Design Review:DESCRIPTION:According to SOAR [REF-1479],
+the following detection techniques may be useful: Highly cost effective: Formal Methods /
+Correct-By-Construction Cost effective for partial coverage: Inspection (IEEE 1028
+standard) (can apply to requirements, design, source code, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design Operation:DESCRIPTION:The architecture needs to access and
+modification attributes for files to only those users who actually require those
+actions.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Compartmentalize the system to have safe areas where trust
+boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the
+trust boundary and always be careful when interfacing with a compartment outside of the
+safe area. Ensure that appropriate compartmentalization is built into the system design,
+and the compartmentalization allows for and reinforces privilege separation functionality.
+Architects and designers should rely on the principle of least privilege to decide the
+appropriate time to use privileges and the time to drop privileges.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

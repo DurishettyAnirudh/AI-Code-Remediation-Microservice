@@ -1,0 +1,28 @@
+cwe: CWE-821
+name: Incorrect Synchronization
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product utilizes a shared resource in a concurrent manner, but it does not correctly
+synchronize access to the resource.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Confidentiality:Other:Avoid situations leading toModify Application Data:Avoid situations leading toRead Application Data:Avoid situations leading toAlter Execution Logic
+
+Language-Agnostic Guidance:
+If access to a shared resource is not correctly synchronized, then the resource may not be
+in a state that is expected by the product. This might lead to unexpected or insecure
+behaviors, especially if an attacker can influence the shared resource.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

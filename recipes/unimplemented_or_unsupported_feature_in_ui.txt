@@ -1,0 +1,28 @@
+cwe: CWE-447
+name: Unimplemented or Unsupported Feature in UI
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A UI function for a security feature appears to be supported and gives feedback to the
+user that suggests that it is supported, but the underlying functionality is not
+implemented.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Testing:Perform functionality testing before deploying the application.
+Don't:
+- Other:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+::PHASE:Testing:DESCRIPTION:Perform functionality testing before deploying the
+application.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,32 @@
+cwe: CWE-213
+name: Exposure of Sensitive Information Due to Incompatible Policies
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product's intended functionality exposes information to certain actors in accordance
+with the developer's security policy, but this information is regarded as sensitive
+according to the intended security policies of other stakeholders such as the product's
+administrator, users, or others whose information is being processed.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data
+
+Language-Agnostic Guidance:
+When handling information, the developer must consider whether the information is regarded
+as sensitive by different stakeholders, such as users or administrators. Each stakeholder
+effectively has its own intended security policy that the product is expected to uphold.
+When a developer does not treat that information as sensitive, this can introduce a
+vulnerability that violates the expectations of the product's users.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

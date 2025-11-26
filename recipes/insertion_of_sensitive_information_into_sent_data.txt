@@ -1,0 +1,52 @@
+cwe: CWE-201
+name: Insertion of Sensitive Information Into Sent Data
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The code transmits data to another actor, but a portion of the data includes sensitive
+information that should not be accessible to that actor.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Requirements:Specify which data in the software should be regarded as sensitive. Consider which types of users should have access to which types of data.
+- PHASE:Implementation:Ensure that any possibly sensitive data specified in the requirements is verified with designers to ensure that it is either a calculated risk or mitigated elsewhere. Any information that is not necessary to the functionality should be removed in order to lower both the overhead and the possibility of security sensitive data being sent.
+- PHASE:System Configuration:Setup default error messages so that unexpected errors do not disclose sensitive information.
+- PHASE:Architecture and Design:Separation of Privilege:Compartmentalize the system to have safe areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area. Ensure that appropriate compartmentalization is built into the system design, and the compartmentalization allows for and reinforces privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide the appropriate time to use privileges and the time to drop privileges.
+Don't:
+- Confidentiality:Avoid situations leading toRead Files or Directories:Avoid situations leading toRead Memory:Avoid situations leading toRead Application Data:NOTE:Sensitive data may be exposed to attackers.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Requirements:DESCRIPTION:Specify which data in the software should be regarded as
+sensitive. Consider which types of users should have access to which types of
+data.::PHASE:Implementation:DESCRIPTION:Ensure that any possibly sensitive data specified
+in the requirements is verified with designers to ensure that it is either a calculated
+risk or mitigated elsewhere. Any information that is not necessary to the functionality
+should be removed in order to lower both the overhead and the possibility of security
+sensitive data being sent.::PHASE:System Configuration:DESCRIPTION:Setup default error
+messages so that unexpected errors do not disclose sensitive
+information.::PHASE:Architecture and Design:STRATEGY:Separation of
+Privilege:DESCRIPTION:Compartmentalize the system to have safe areas where trust
+boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the
+trust boundary and always be careful when interfacing with a compartment outside of the
+safe area. Ensure that appropriate compartmentalization is built into the system design,
+and the compartmentalization allows for and reinforces privilege separation functionality.
+Architects and designers should rely on the principle of least privilege to decide the
+appropriate time to use privileges and the time to drop privileges.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

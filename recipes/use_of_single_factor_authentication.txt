@@ -1,0 +1,35 @@
+cwe: CWE-308
+name: Use of Single-factor Authentication
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The use of single-factor authentication can lead to unnecessary risk of compromise when
+compared with the benefits of a dual-factor authentication scheme.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Use multiple independent authentication schemes, which ensures that -- if one of the methods is compromised -- the system itself is still likely safe from compromise.
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism:NOTE:If the secret in a single-factor authentication scheme gets compromised, full authentication is possible.
+
+Language-Agnostic Guidance:
+While the use of multiple authentication schemes is simply piling on more complexity on
+top of authentication, it is inestimably valuable to have such measures of redundancy. The
+use of weak, reused, and common passwords is rampant on the internet. Without the added
+protection of multiple authentication schemes, a single mistake can result in the
+compromise of an account. For this reason, if multiple schemes are possible and also easy
+to use, they should be implemented and required.
+
+::PHASE:Architecture and Design:DESCRIPTION:Use multiple independent authentication
+schemes, which ensures that -- if one of the methods is compromised -- the system itself
+is still likely safe from compromise.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

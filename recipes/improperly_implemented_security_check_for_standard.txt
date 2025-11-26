@@ -1,0 +1,26 @@
+cwe: CWE-358
+name: Improperly Implemented Security Check for Standard
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not implement or incorrectly implements one or more security-relevant
+checks as specified by the design of a standardized algorithm, protocol, or technique.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

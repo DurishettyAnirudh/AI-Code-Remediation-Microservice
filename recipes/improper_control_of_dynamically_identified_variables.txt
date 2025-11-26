@@ -1,0 +1,38 @@
+cwe: CWE-914
+name: Improper Control of Dynamically-Identified Variables
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product does not properly restrict reading from or writing to dynamically-identified
+variables.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Input Validation:For any externally-influenced input, check the input against an allowlist of internal program variables that are allowed to be modified.
+- PHASE:Implementation Architecture and Design:Refactoring:Refactor the code so that internal program variables do not need to be dynamically identified.
+Don't:
+- Integrity:Avoid situations leading toModify Application Data:NOTE:An attacker could modify sensitive data or program variables.
+- Integrity:Avoid situations leading toExecute Unauthorized Code or Commands
+- Other:Integrity:Avoid situations leading toVaries by Context:Avoid situations leading toAlter Execution Logic
+
+Language-Agnostic Guidance:
+Many languages offer powerful features that allow the programmer to access arbitrary
+variables that are specified by an input string. While these features can offer
+significant flexibility and reduce development time, they can be extremely dangerous if
+attackers can modify unintended variables that have security implications.
+
+::PHASE:Implementation:STRATEGY:Input Validation:DESCRIPTION:For any externally-influenced
+input, check the input against an allowlist of internal program variables that are allowed
+to be modified.::PHASE:Implementation Architecture and
+Design:STRATEGY:Refactoring:DESCRIPTION:Refactor the code so that internal program
+variables do not need to be dynamically identified.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

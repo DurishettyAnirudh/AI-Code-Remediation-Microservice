@@ -1,0 +1,30 @@
+cwe: CWE-587
+name: Assignment of a Fixed Address to a Pointer
+languages: C, C++, C#
+tags: Draft, Memory Management, Variant
+---
+Short Description:
+The product sets a pointer to a specific address other than NULL or 0.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Never set a pointer to a fixed address.
+Don't:
+- Integrity:Confidentiality:Availability:Avoid situations leading toExecute Unauthorized Code or Commands:NOTE:If one executes code at a known location, an attacker might be able to inject code there beforehand.
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:Avoid situations leading toReduce Maintainability:Avoid situations leading toReduce Reliability:NOTE:If the code is ported to another platform or environment, the pointer is likely to be invalid and cause a crash.
+- Confidentiality:Integrity:Avoid situations leading toRead Memory:Avoid situations leading toModify Memory:NOTE:The data at a known pointer location can be easily read or influenced by an attacker.
+
+Language-Agnostic Guidance:
+Using a fixed address is not portable, because that address will probably not be valid in
+all environments or platforms.
+
+::PHASE:Implementation:DESCRIPTION:Never set a pointer to a fixed address.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

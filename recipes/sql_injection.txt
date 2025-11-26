@@ -1,0 +1,33 @@
+---
+cwe: CWE-89
+tags: [sql-injection, database, security]
+languages: [java, python, general]
+---
+
+### SQL Injection (CWE-89)
+
+**Description:**
+SQL Injection is a vulnerability that allows an attacker to interfere with the queries that an application makes to its database. It generally allows an attacker to view data that they are not normally able to retrieve.
+
+**Secure Coding Checklist:**
+- **Do:** Use parameterized queries (prepared statements).
+- **Do:** Use an ORM with built-in protection.
+- **Don't:** Concatenate user input directly into SQL queries.
+- **Don't:** Trust any user-provided input.
+
+**Guidance & Snippets:**
+
+**Java (using PreparedStatement):**
+```java
+// Secure
+String sql = "SELECT * FROM accounts WHERE username = ?";
+PreparedStatement pstmt = conn.prepareStatement(sql);
+pstmt.setString(1, id);
+ResultSet rs = pstmt.executeQuery();
+```
+
+**Python (using `mysql.connector`):**
+```python
+# Secure
+cursor.execute("SELECT * FROM accounts WHERE username = %s", (id,))
+```

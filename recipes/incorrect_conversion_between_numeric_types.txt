@@ -1,0 +1,28 @@
+cwe: CWE-681
+name: Incorrect Conversion between Numeric Types
+languages: C
+tags: Base, Draft
+---
+Short Description:
+When converting from one data type to another, such as long to integer, data can be
+omitted or translated in a way that produces unexpected values. If the resulting values
+are used in a sensitive context, then dangerous behaviors may occur.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Avoid making conversion between numeric types. Always check for the allowed ranges.
+Don't:
+- Other:Integrity:Avoid situations leading toUnexpected State:Avoid situations leading toQuality Degradation:NOTE:The program could wind up using the wrong number and generate incorrect results. If the number is used to allocate resources or make a security decision, then this could introduce a vulnerability.
+
+Language-Agnostic Guidance:
+::PHASE:Implementation:DESCRIPTION:Avoid making conversion between numeric types. Always
+check for the allowed ranges.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

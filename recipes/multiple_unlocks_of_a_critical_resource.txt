@@ -1,0 +1,37 @@
+cwe: CWE-765
+name: Multiple Unlocks of a Critical Resource
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product unlocks a critical resource more times than intended, leading to an unexpected
+state in the system.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:When locking and unlocking a resource, try to be sure that all control paths through the code in which the resource is locked one or more times correspond to exactly as many unlocks. If the product acquires a lock and then determines it is not able to perform its intended behavior, be sure to release the lock(s) before waiting for conditions to improve. Reacquire the lock(s) before trying again.
+Don't:
+- Availability:Integrity:Avoid situations leading toDoS: Crash, Exit, or Restart:Avoid situations leading toModify Memory:Avoid situations leading toUnexpected State
+
+Language-Agnostic Guidance:
+When the product is operating in a concurrent environment and repeatedly unlocks a
+critical resource, the consequences will vary based on the type of lock, the lock's
+implementation, and the resource being protected. In some situations such as with
+semaphores, the resources are pooled and extra calls to unlock will increase the count for
+the number of available resources, likely resulting in a crash or unpredictable behavior
+when the system nears capacity.
+
+::PHASE:Implementation:DESCRIPTION:When locking and unlocking a resource, try to be sure
+that all control paths through the code in which the resource is locked one or more times
+correspond to exactly as many unlocks. If the product acquires a lock and then determines
+it is not able to perform its intended behavior, be sure to release the lock(s) before
+waiting for conditions to improve. Reacquire the lock(s) before trying again.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

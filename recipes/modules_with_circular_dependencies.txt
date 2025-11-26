@@ -1,0 +1,31 @@
+cwe: CWE-1047
+name: Modules with Circular Dependencies
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product contains modules in which one module has references that cycle back to itself,
+i.e., there are circular dependencies.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+As an example, with Java, this weakness might indicate cycles between packages. This issue
+makes it more difficult to maintain the product due to insufficient modularity, which
+indirectly affects security by making it more difficult or time-consuming to find and/or
+fix vulnerabilities. It also might make it easier to introduce vulnerabilities. This issue
+can prevent the product from running reliably. If the relevant code is reachable by an
+attacker, then this reliability problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

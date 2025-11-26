@@ -1,0 +1,33 @@
+cwe: CWE-767
+name: Access to Critical Private Variable via Public Method
+languages: C++, C#, Java
+tags: Base, Incomplete
+---
+Short Description:
+The product defines a public method that reads or modifies a private variable.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Use class accessor and mutator methods appropriately. Perform validation when accepting data from a public method that is intended to modify a critical private variable. Also be sure that appropriate access controls are being applied when a public method interfaces with critical data.
+Don't:
+- Integrity:Other:Avoid situations leading toModify Application Data:Avoid situations leading toOther
+
+Language-Agnostic Guidance:
+If an attacker modifies the variable to contain unexpected values, this could violate
+assumptions from other parts of the code. Additionally, if an attacker can read the
+private variable, it may expose sensitive information or make it easier to launch further
+attacks.
+
+::PHASE:Implementation:DESCRIPTION:Use class accessor and mutator methods appropriately.
+Perform validation when accepting data from a public method that is intended to modify a
+critical private variable. Also be sure that appropriate access controls are being applied
+when a public method interfaces with critical data.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

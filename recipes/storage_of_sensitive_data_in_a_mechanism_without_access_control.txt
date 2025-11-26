@@ -1,0 +1,35 @@
+cwe: CWE-921
+name: Storage of Sensitive Data in a Mechanism without Access Control
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product stores sensitive information in a file system or device that does not have
+built-in access control.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data:Avoid situations leading toRead Files or Directories:NOTE:Attackers can read sensitive information by accessing the unrestricted storage mechanism.
+- Integrity:Avoid situations leading toModify Application Data:Avoid situations leading toModify Files or Directories:NOTE:Attackers can modify or delete sensitive information by accessing the unrestricted storage mechanism.
+
+Language-Agnostic Guidance:
+While many modern file systems or devices utilize some form of access control in order to
+restrict access to data, not all storage mechanisms have this capability. For example,
+memory cards, floppy disks, CDs, and USB devices are typically made accessible to any user
+within the system. This can become a problem when sensitive data is stored in these
+mechanisms in a multi-user environment, because anybody on the system can read or write
+this data. On Android devices, external storage is typically globally readable and
+writable by other applications on the device. External storage may also be easily
+accessible through the mobile device's USB connection or physically accessible through the
+device's memory card port.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

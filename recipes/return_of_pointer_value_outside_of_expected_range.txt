@@ -1,0 +1,26 @@
+cwe: CWE-466
+name: Return of Pointer Value Outside of Expected Range
+languages: C, C++
+tags: Base, Draft, Memory Management
+---
+Short Description:
+A function can return a pointer to memory that is outside of the buffer that the pointer
+is expected to reference.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Memory:Avoid situations leading toModify Memory
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

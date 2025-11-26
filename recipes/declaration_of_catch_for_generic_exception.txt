@@ -1,0 +1,39 @@
+cwe: CWE-396
+name: Declaration of Catch for Generic Exception
+languages: C++, Java, C#, Python
+tags: Base, Draft
+---
+Short Description:
+Catching overly broad exceptions promotes complex error handling code that is more likely
+to contain security vulnerabilities.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Non-Repudiation:Other:Avoid situations leading toHide Activities:NOTE:A generic exception can hide details about unexpected adversary activities by making it difficult to properly troubleshoot error conditions during execution.
+
+Language-Agnostic Guidance:
+Multiple catch blocks can get ugly and repetitive, but condensing catch blocks by catching
+a high-level class like Exception can obscure exceptions that deserve special treatment or
+that should not be caught at this point in the program. Catching an overly broad exception
+essentially defeats the purpose of a language's typed exceptions, and can become
+particularly dangerous if the program grows and begins to throw new types of exceptions.
+The new exception types will not receive any attention.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

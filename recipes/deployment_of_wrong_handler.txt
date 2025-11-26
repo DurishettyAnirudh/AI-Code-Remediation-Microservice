@@ -1,0 +1,32 @@
+cwe: CWE-430
+name: Deployment of Wrong Handler
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The wrong handler is assigned to process an object.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Perform a type check before interpreting an object.
+- PHASE:Architecture and Design:Reject any inconsistent types, such as a file with a .GIF extension that appears to consist of PHP code.
+Don't:
+- Integrity:Other:Avoid situations leading toVaries by Context:Avoid situations leading toUnexpected State
+
+Language-Agnostic Guidance:
+An example of deploying the wrong handler would be calling a servlet to reveal source code
+of a .JSP file, or automatically determining type of the object even if it is
+contradictory to an explicitly specified type.
+
+::PHASE:Architecture and Design:DESCRIPTION:Perform a type check before interpreting an
+object.::PHASE:Architecture and Design:DESCRIPTION:Reject any inconsistent types, such as
+a file with a .GIF extension that appears to consist of PHP code.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

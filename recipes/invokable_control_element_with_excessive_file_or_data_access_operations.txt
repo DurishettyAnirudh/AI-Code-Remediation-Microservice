@@ -1,0 +1,30 @@
+cwe: CWE-1084
+name: Invokable Control Element with Excessive File or Data Access Operations
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A function or method contains too many operations that utilize a data manager or file
+resource.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+This issue makes it more difficult to maintain the product, which indirectly affects
+security by making it more difficult or time-consuming to find and/or fix vulnerabilities.
+It also might make it easier to introduce vulnerabilities. While the interpretation of too
+many operations may vary for each product or developer, CISQ recommends a default maximum
+of 7 operations for the same data manager or file.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

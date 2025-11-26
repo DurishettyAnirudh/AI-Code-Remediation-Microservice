@@ -1,0 +1,31 @@
+cwe: CWE-605
+name: Multiple Binds to the Same Port
+languages: unspecified
+tags: Draft, Variant
+---
+Short Description:
+When multiple sockets are allowed to bind to the same port, other services on that port
+may be stolen or spoofed.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Policy:Restrict server socket address to known local addresses.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Application Data:NOTE:Packets from a variety of network services may be stolen or the services spoofed.
+
+Language-Agnostic Guidance:
+On most systems, a combination of setting the SO_REUSEADDR socket option, and a call to
+bind() allows any process to bind to a port to which a previous process has bound with
+INADDR_ANY. This allows a user to bind to the specific address of a server bound to
+INADDR_ANY on an unprivileged port, and steal its UDP packets/TCP connection.
+
+::PHASE:Policy:DESCRIPTION:Restrict server socket address to known local addresses.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

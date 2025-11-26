@@ -1,0 +1,27 @@
+cwe: CWE-1112
+name: Incomplete Documentation of Program Execution
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The document does not fully define all mechanisms that are used to control or influence
+how product-specific programs are executed.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Never trust unbounded input and do not bypass centralized validation.
+
+Language-Agnostic Guidance:
+This includes environmental variables, configuration files, registry keys, command-line
+switches or options, or system settings.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

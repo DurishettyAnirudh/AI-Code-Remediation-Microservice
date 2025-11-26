@@ -1,0 +1,31 @@
+cwe: CWE-208
+name: Observable Timing Discrepancy
+languages: unspecified
+tags: Authentication, Base, Cryptography, Incomplete
+---
+Short Description:
+Two separate operations in a product require different amounts of time to complete, in a
+way that is observable to an actor and reveals security-relevant information about the
+state of the product, such as whether a particular operation was successful or not.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Confidentiality:Access Control:Avoid situations leading toRead Application Data:Avoid situations leading toBypass Protection Mechanism
+
+Language-Agnostic Guidance:
+In security-relevant contexts, even small variations in timing can be exploited by
+attackers to indirectly infer certain details about the product's internal operations. For
+example, in some cryptographic algorithms, attackers can use timing differences to infer
+certain properties about a private key, making the key easier to guess. Timing
+discrepancies effectively form a timing side channel.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

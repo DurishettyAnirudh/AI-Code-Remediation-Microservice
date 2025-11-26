@@ -1,0 +1,29 @@
+cwe: CWE-924
+name: Improper Enforcement of Message Integrity During Transmission in a Communication Channel
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product establishes a communication channel with an endpoint and receives a message
+from that endpoint, but it does not sufficiently ensure that the message was not modified
+during transmission.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Confidentiality:Avoid situations leading toGain Privileges or Assume Identity:NOTE:If an attackers can spoof the endpoint, the attacker gains all the privileges that were intended for the original endpoint.
+
+Language-Agnostic Guidance:
+Attackers might be able to modify the message and spoof the endpoint by interfering with
+the data as it crosses the network or by redirecting the connection to a system under
+their control.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

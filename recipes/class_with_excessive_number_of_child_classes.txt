@@ -1,0 +1,29 @@
+cwe: CWE-1086
+name: Class with Excessive Number of Child Classes
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A class contains an unnecessarily large number of children.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+This issue makes it more difficult to understand and maintain the software, which
+indirectly affects security by making it more difficult or time-consuming to find and/or
+fix vulnerabilities. It also might make it easier to introduce vulnerabilities. While the
+interpretation of large number of children may vary for each product or developer, CISQ
+recommends a default maximum of 10 child classes.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,47 @@
+cwe: CWE-1265
+name: Unintended Reentrant Invocation of Non-reentrant Code Via Nested Calls
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+During execution of non-reentrant code, the product performs a call that unintentionally
+produces a nested invocation of the non-reentrant code.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:When architecting a system that will execute untrusted code in response to events, consider executing the untrusted event handlers asynchronously (asynchronous message passing) as opposed to executing them synchronously at the time each event fires. The untrusted code should execute at the start of the next iteration of the thread's message loop. In this way, calls into non-reentrant code are strictly serialized, so that each operation completes fully before the next operation begins. Special attention must be paid to all places where type coercion may result in script execution. Performing all needed coercions at the very beginning of an operation can help reduce the chance of operations executing at unexpected junctures.:EFFECTIVENESS:High
+- PHASE:Implementation:Make sure the code (e.g., function or class) in question is reentrant by not leveraging non-local data, not modifying its own code, and not calling other non-reentrant code.:EFFECTIVENESS:High
+Don't:
+- Integrity:Avoid situations leading toUnexpected State:LIKELIHOOD:Unknown:NOTE:Exploitation of this weakness can leave the application in an unexpected state and cause variables to be reassigned before the first invocation has completed. This may eventually result in memory corruption or unexpected code execution.
+
+Language-Agnostic Guidance:
+In a complex product, a single function call may lead to many different possible code
+paths, some of which may involve deeply nested calls. It may be difficult to foresee all
+possible code paths that could emanate from a given function call. In some systems, an
+external actor can manipulate inputs to the system and thereby achieve a wide range of
+possible control flows. This is frequently a concern in products that execute scripts from
+untrusted sources. Examples of such products are web browsers and PDF readers. A weakness
+is present when one of the possible code paths resulting from a function call alters
+program state that the original caller assumes to be unchanged during the call.
+
+::PHASE:Architecture and Design:DESCRIPTION:When architecting a system that will execute
+untrusted code in response to events, consider executing the untrusted event handlers
+asynchronously (asynchronous message passing) as opposed to executing them synchronously
+at the time each event fires. The untrusted code should execute at the start of the next
+iteration of the thread's message loop. In this way, calls into non-reentrant code are
+strictly serialized, so that each operation completes fully before the next operation
+begins. Special attention must be paid to all places where type coercion may result in
+script execution. Performing all needed coercions at the very beginning of an operation
+can help reduce the chance of operations executing at unexpected
+junctures.:EFFECTIVENESS:High::PHASE:Implementation:DESCRIPTION:Make sure the code (e.g.,
+function or class) in question is reentrant by not leveraging non-local data, not
+modifying its own code, and not calling other non-reentrant code.:EFFECTIVENESS:High::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

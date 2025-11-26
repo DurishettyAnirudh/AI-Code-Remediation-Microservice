@@ -1,0 +1,30 @@
+cwe: CWE-1109
+name: Use of Same Variable for Multiple Purposes
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The code contains a callable, block, or other code element in which the same variable is
+used to control more than one unique task or store more than one instance of data.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+Use of the same variable for multiple purposes can make it more difficult for a person to
+read or understand the code, potentially hiding other quality issues. This issue makes it
+more difficult to maintain the product, which indirectly affects security by making it
+more difficult or time-consuming to find and/or fix vulnerabilities. It also might make it
+easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

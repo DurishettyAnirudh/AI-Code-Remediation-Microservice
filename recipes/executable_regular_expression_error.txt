@@ -1,0 +1,32 @@
+cwe: CWE-624
+name: Executable Regular Expression Error
+languages: PHP, Perl
+tags: Base, Incomplete
+---
+Short Description:
+The product uses a regular expression that either (1) contains an executable component
+with user-controlled inputs, or (2) allows a user to enable execution by inserting pattern
+modifiers.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:The regular expression feature in some languages allows inputs to be quoted or escaped before insertion, such as Q and E in Perl.
+Don't:
+- Confidentiality:Integrity:Availability:Avoid situations leading toExecute Unauthorized Code or Commands
+
+Language-Agnostic Guidance:
+Case (2) is possible in the PHP preg_replace() function, and possibly in other languages
+when a user-controlled input is inserted into a string that is later parsed as a regular
+expression.
+
+::PHASE:Implementation:DESCRIPTION:The regular expression feature in some languages allows
+inputs to be quoted or escaped before insertion, such as Q and E in Perl.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

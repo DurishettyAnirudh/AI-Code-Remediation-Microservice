@@ -1,0 +1,33 @@
+cwe: CWE-694
+name: Use of Multiple Resources with Duplicate Identifier
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product uses multiple resources that can have the same identifier, in a context in
+which unique identifiers are required.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Where possible, use unique identifiers. If non-unique identifiers are detected, then do not operate any resource with a non-unique identifier and report the error appropriately.
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism:NOTE:If unique identifiers are assumed when protecting sensitive resources, then duplicate identifiers might allow attackers to bypass the protection.
+- Other:Avoid situations leading toQuality Degradation
+
+Language-Agnostic Guidance:
+If the product assumes that each resource has a unique identifier, the product could
+operate on the wrong resource if attackers can cause multiple resources to be associated
+with the same identifier.
+
+::PHASE:Architecture and Design:DESCRIPTION:Where possible, use unique identifiers. If
+non-unique identifiers are detected, then do not operate any resource with a non-unique
+identifier and report the error appropriately.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

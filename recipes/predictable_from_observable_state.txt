@@ -1,0 +1,34 @@
+cwe: CWE-341
+name: Predictable from Observable State
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A number or object is predictable based on observations that the attacker can make about
+the state of the system or network, such as time, process ID, etc.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Increase the entropy used to seed a PRNG.
+- PHASE:Architecture and Design Requirements:Libraries or Frameworks:Use products or modules that conform to FIPS 140-2 [REF-267] to avoid obvious entropy problems. Consult FIPS 140-2 Annex C (Approved Random Number Generators).
+- PHASE:Implementation:Use a PRNG that periodically re-seeds itself using input from high-quality sources, such as hardware devices with high entropy. However, do not re-seed too frequently, or else the entropy source might block.
+Don't:
+- Other:Avoid situations leading toVaries by Context:NOTE:This weakness could be exploited by an attacker in a number ways depending on the context. If a predictable number is used to generate IDs or keys that are used within protection mechanisms, then an attacker could gain unauthorized access to the system. If predictable filenames are used for storing sensitive information, then an attacker might gain access to the system and may be able to gain access to the information in the file.
+
+Language-Agnostic Guidance:
+::PHASE:Implementation:DESCRIPTION:Increase the entropy used to seed a
+PRNG.::PHASE:Architecture and Design Requirements:STRATEGY:Libraries or
+Frameworks:DESCRIPTION:Use products or modules that conform to FIPS 140-2 [REF-267] to
+avoid obvious entropy problems. Consult FIPS 140-2 Annex C (Approved Random Number
+Generators).::PHASE:Implementation:DESCRIPTION:Use a PRNG that periodically re-seeds
+itself using input from high-quality sources, such as hardware devices with high entropy.
+However, do not re-seed too frequently, or else the entropy source might block.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

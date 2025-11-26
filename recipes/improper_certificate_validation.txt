@@ -1,0 +1,54 @@
+cwe: CWE-295
+name: Improper Certificate Validation
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not validate, or incorrectly validates, a certificate.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Implementation:Certificates should be carefully managed and checked to assure that data are encrypted with the intended owner's public key.
+- PHASE:Implementation:If certificate pinning is being used, ensure that all relevant properties of the certificate are fully validated before the certificate is pinned, including the hostname.
+Don't:
+- Integrity:Authentication:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toGain Privileges or Assume Identity:NOTE:When a certificate is invalid or malicious, it might allow an attacker to spoof a trusted entity by interfering in the communication path between the host and client. The product might connect to a malicious host while believing it is a trusted host, or the product might be deceived into accepting spoofed data that appears to originate from a trusted host.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Cost effective for partial
+coverage: Bytecode Weakness Analysis - including disassembler + source code weakness
+analysis Binary Weakness Analysis - including disassembler + source code weakness
+analysis:EFFECTIVENESS:SOAR Partial::METHOD:Manual Static Analysis - Binary or
+Bytecode:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may
+be useful: Cost effective for partial coverage: Binary / Bytecode disassembler - then use
+manual analysis for vulnerabilities & anomalies:EFFECTIVENESS:SOAR Partial::METHOD:Dynamic
+Analysis with Automated Results Interpretation:DESCRIPTION:According to SOAR [REF-1479],
+the following detection techniques may be useful: Cost effective for partial coverage: Web
+Application Scanner:EFFECTIVENESS:SOAR Partial::METHOD:Dynamic Analysis with Manual
+Results Interpretation:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Highly cost effective: Man-in-the-middle attack
+tool:EFFECTIVENESS:High::METHOD:Manual Static Analysis - Source Code:DESCRIPTION:According
+to SOAR [REF-1479], the following detection techniques may be useful: Highly cost
+effective: Focused Manual Spotcheck - Focused manual analysis of source Manual Source Code
+Review (not inspections):EFFECTIVENESS:High::METHOD:Automated Static Analysis - Source
+Code:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Cost effective for partial coverage: Source code Weakness Analyzer Context-
+configured Source Code Weakness Analyzer:EFFECTIVENESS:SOAR Partial::METHOD:Architecture
+or Design Review:DESCRIPTION:According to SOAR [REF-1479], the following detection
+techniques may be useful: Highly cost effective: Inspection (IEEE 1028 standard) (can
+apply to requirements, design, source code, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design Implementation:DESCRIPTION:Certificates should be
+carefully managed and checked to assure that data are encrypted with the intended owner's
+public key.::PHASE:Implementation:DESCRIPTION:If certificate pinning is being used, ensure
+that all relevant properties of the certificate are fully validated before the certificate
+is pinned, including the hostname.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

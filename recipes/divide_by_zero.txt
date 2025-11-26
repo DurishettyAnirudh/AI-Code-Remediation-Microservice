@@ -1,0 +1,41 @@
+cwe: CWE-369
+name: Divide By Zero
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product divides a value by zero.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Availability:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:A Divide by Zero results in a crash.
+
+Language-Agnostic Guidance:
+This weakness typically occurs when an unexpected value is provided to the product, or if
+an error occurs that is not properly detected. It frequently occurs in calculations
+involving physical dimensions such as size, length, width, and height.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::METHOD:Fuzzing:DESCRIPTION:Fuzz testing (fuzzing) is a
+powerful technique for generating large numbers of diverse inputs - either randomly or
+algorithmically - and dynamically invoking the code with those inputs. Even with random
+inputs, it is often capable of generating unexpected results such as crashes, memory
+corruption, or resource consumption. Fuzzing effectively produces repeatable test cases
+that clearly indicate bugs, which helps developers to diagnose the
+issues.:EFFECTIVENESS:High::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

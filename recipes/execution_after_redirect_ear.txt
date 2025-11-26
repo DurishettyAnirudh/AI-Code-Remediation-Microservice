@@ -1,0 +1,29 @@
+cwe: CWE-698
+name: Execution After Redirect (EAR)
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The web application sends a redirect to another location, but instead of exiting, it
+executes additional code.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Confidentiality:Integrity:Availability:Avoid situations leading toAlter Execution Logic:Avoid situations leading toExecute Unauthorized Code or Commands:NOTE:This weakness could affect the control flow of the application and allow execution of untrusted code.
+
+Language-Agnostic Guidance:
+::METHOD:Black Box:DESCRIPTION:This issue might not be detected if testing is performed
+using a web browser, because the browser might obey the redirect and move the user to a
+different page before the application has produced outputs that indicate something is
+amiss.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

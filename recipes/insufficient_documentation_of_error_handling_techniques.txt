@@ -1,0 +1,27 @@
+cwe: CWE-1118
+name: Insufficient Documentation of Error Handling Techniques
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The documentation does not sufficiently describe the techniques that are used for error
+handling, exception processing, or similar mechanisms.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Never trust unbounded input and do not bypass centralized validation.
+
+Language-Agnostic Guidance:
+Documentation may need to cover error handling techniques at multiple layers, such as
+module, executable, compilable code unit, or callable.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

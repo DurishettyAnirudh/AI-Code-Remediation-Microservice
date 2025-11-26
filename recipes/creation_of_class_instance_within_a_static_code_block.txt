@@ -1,0 +1,29 @@
+cwe: CWE-1063
+name: Creation of Class Instance within a Static Code Block
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A static code block creates an instance of a class.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Performance
+
+Language-Agnostic Guidance:
+This pattern identifies situations where a storable data element or member data element is
+initialized with a value in a block of code which is declared as static. This issue can
+make the product perform more slowly by performing initialization before it is needed. If
+the relevant code is reachable by an attacker, then this performance problem might
+introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,22 @@
+[
+  {
+    "cwe_id": "CWE-89",
+    "language": "python",
+    "code": "import sqlite3\n\ndef get_user(username):\n    conn = sqlite3.connect('example.db')\n    cursor = conn.cursor()\n    query = \"SELECT * FROM users WHERE username = '\" + username + \"'\"\n    cursor.execute(query)\n    user = cursor.fetchone()\n    conn.close()\n    return user"
+  },
+  {
+    "language": "java",
+    "cwe": "CWE-89",
+    "code": "String id = request.getParameter('id') Statement stmt = conn.createStatement(); String query = \"SELECT * FROM accounts WHERE username = '\" + id + \"'\"; ResultSet rs = stmt.executeQuery(query);"
+  },
+  {
+    "cwe_id": "CWE-78",
+    "language": "python",
+    "code": "import os\n\ndef list_directory_contents(directory):\n    # This is dangerous! A user could input `'; ls -la'`\n    command = 'ls ' + directory\n    os.system(command)"
+  },
+  {
+    "cwe_id": "CWE-22",
+    "language": "python",
+    "code": "import os\n\ndef read_file_content(base_path, filename):\n    # Vulnerable to path traversal: filename could be '../secrets.txt'\n    file_path = os.path.join(base_path, filename)\n    with open(file_path, 'r') as f:\n        return f.read()"
+  }
+]

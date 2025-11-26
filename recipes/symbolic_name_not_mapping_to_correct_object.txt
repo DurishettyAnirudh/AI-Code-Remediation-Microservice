@@ -1,0 +1,30 @@
+cwe: CWE-386
+name: Symbolic Name not Mapping to Correct Object
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+A constant symbolic reference to an object is used, even though the reference can resolve
+to a different object over time.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity:NOTE:The attacker can gain access to otherwise unauthorized resources.
+- Integrity:Confidentiality:Other:Avoid situations leading toModify Application Data:Avoid situations leading toModify Files or Directories:Avoid situations leading toRead Application Data:Avoid situations leading toRead Files or Directories:Avoid situations leading toOther:NOTE:Race conditions such as this kind may be employed to gain read or write access to resources not normally readable or writable by the user in question.
+- Integrity:Other:Avoid situations leading toModify Application Data:Avoid situations leading toOther:NOTE:The resource in question, or other resources (through the corrupted one) may be changed in undesirable ways by a malicious user.
+- Non-Repudiation:Avoid situations leading toHide Activities:NOTE:If a file or other resource is written in this method, as opposed to a valid way, logging of the activity may not occur.
+- Non-Repudiation:Integrity:Avoid situations leading toModify Files or Directories:NOTE:In some cases it may be possible to delete files that a malicious user might not otherwise have access to -- such as log files.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

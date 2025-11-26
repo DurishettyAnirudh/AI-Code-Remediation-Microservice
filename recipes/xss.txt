@@ -1,0 +1,26 @@
+---
+cwe: CWE-79
+tags: [xss, cross-site-scripting, web]
+languages: [javascript, general]
+---
+
+### Cross-Site Scripting (XSS)
+
+**Description:**
+Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious scripts are injected into otherwise benign and trusted websites.
+
+**Secure Coding Checklist:**
+- **Do:** Encode output on the server side.
+- **Do:** Use a library like DOMPurify on the client side.
+- **Don't:** Use `innerHTML` to set content from user input.
+- **Don't:** Trust user input to be safe.
+
+**Guidance & Snippets:**
+
+**JavaScript (DOMPurify):**
+```javascript
+// Secure
+import DOMPurify from 'dompurify';
+const clean = DOMPurify.sanitize(dirty);
+document.getElementById('content').innerHTML = clean;
+```

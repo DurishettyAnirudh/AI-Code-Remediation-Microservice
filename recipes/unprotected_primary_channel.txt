@@ -1,0 +1,29 @@
+cwe: CWE-419
+name: Unprotected Primary Channel
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product uses a primary channel for administration or restricted functionality, but it
+does not properly protect the channel.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Do not expose administrative functionnality on the user UI.
+- PHASE:Architecture and Design:Protect the administrative/restricted functionality with a strong authentication mechanism.
+Don't:
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toBypass Protection Mechanism
+
+Language-Agnostic Guidance:
+::PHASE:Architecture and Design:DESCRIPTION:Do not expose administrative functionnality on
+the user UI.::PHASE:Architecture and Design:DESCRIPTION:Protect the
+administrative/restricted functionality with a strong authentication mechanism.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

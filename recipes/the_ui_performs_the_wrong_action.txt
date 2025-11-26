@@ -1,0 +1,26 @@
+cwe: CWE-449
+name: The UI Performs the Wrong Action
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The UI performs the wrong action with respect to the user's request.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Testing:Perform extensive functionality testing of the UI. The UI should behave as specified.
+Don't:
+- Other:Avoid situations leading toQuality Degradation:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+::PHASE:Testing:DESCRIPTION:Perform extensive functionality testing of the UI. The UI
+should behave as specified.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

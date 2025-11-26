@@ -1,0 +1,26 @@
+cwe: CWE-290
+name: Authentication Bypass by Spoofing
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+This attack-focused weakness is caused by incorrectly implemented authentication schemes
+that are subject to spoofing attacks.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toGain Privileges or Assume Identity:NOTE:This weakness can allow an attacker to access resources which are not otherwise accessible without proper authentication.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

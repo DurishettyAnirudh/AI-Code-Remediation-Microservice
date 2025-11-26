@@ -1,0 +1,45 @@
+cwe: CWE-524
+name: Use of Cache Containing Sensitive Information
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The code uses a cache that contains sensitive information, but the cache can be read by an
+actor outside of the intended control sphere.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Protect information stored in cache.
+- PHASE:Architecture and Design:Do not store unnecessarily sensitive information in the cache.
+- PHASE:Architecture and Design:Consider using encryption in the cache.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data
+
+Language-Agnostic Guidance:
+Applications may use caches to improve efficiency when communicating with remote entities
+or performing intensive calculations. A cache maintains a pool of objects, threads,
+connections, pages, financial data, passwords, or other resources to minimize the time it
+takes to initialize and access these resources. If the cache is accessible to unauthorized
+actors, attackers can read the cache and obtain this sensitive information.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design:DESCRIPTION:Protect information stored in
+cache.::PHASE:Architecture and Design:DESCRIPTION:Do not store unnecessarily sensitive
+information in the cache.::PHASE:Architecture and Design:DESCRIPTION:Consider using
+encryption in the cache.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

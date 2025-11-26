@@ -1,0 +1,37 @@
+cwe: CWE-378
+name: Creation of Temporary File With Insecure Permissions
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+Opening temporary files without appropriate measures or controls can leave the file, its
+contents and any function that it impacts vulnerable to attack.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Requirements:Many contemporary languages have functions which properly handle this condition. Older C temp file functions are especially susceptible.
+- PHASE:Implementation:Ensure that you use proper file permissions. This can be achieved by using a safe temp file function. Temporary files should be writable and readable only by the process that owns the file.
+- PHASE:Implementation:Randomize temporary file names. This can also be achieved by using a safe temp-file function. This will ensure that temporary files will not be created in predictable places.
+Don't:
+- Confidentiality:Avoid situations leading toRead Application Data:NOTE:If the temporary file can be read by the attacker, sensitive information may be in that file which could be revealed.
+- Authorization:Other:Avoid situations leading toOther:NOTE:If that file can be written to by the attacker, the file might be moved into a place to which the attacker does not have access. This will allow the attacker to gain selective resource access-control privileges.
+- Integrity:Other:Avoid situations leading toOther:NOTE:Depending on the data stored in the temporary file, there is the potential for an attacker to gain an additional input vector which is trusted as non-malicious. It may be possible to make arbitrary changes to data structures, user information, or even process ownership.
+
+Language-Agnostic Guidance:
+::PHASE:Requirements:DESCRIPTION:Many contemporary languages have functions which properly
+handle this condition. Older C temp file functions are especially
+susceptible.::PHASE:Implementation:DESCRIPTION:Ensure that you use proper file
+permissions. This can be achieved by using a safe temp file function. Temporary files
+should be writable and readable only by the process that owns the
+file.::PHASE:Implementation:DESCRIPTION:Randomize temporary file names. This can also be
+achieved by using a safe temp-file function. This will ensure that temporary files will
+not be created in predictable places.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

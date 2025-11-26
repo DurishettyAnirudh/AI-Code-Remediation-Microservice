@@ -1,0 +1,26 @@
+cwe: CWE-408
+name: Incorrect Behavior Order: Early Amplification
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product allows an entity to perform a legitimate but expensive operation before
+authentication or authorization has taken place.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Availability:Avoid situations leading toDoS: Amplification:Avoid situations leading toDoS: Crash, Exit, or Restart:Avoid situations leading toDoS: Resource Consumption (CPU):Avoid situations leading toDoS: Resource Consumption (Memory):NOTE:System resources, CPU and memory, can be quickly consumed. This can lead to poor system performance or system crash.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

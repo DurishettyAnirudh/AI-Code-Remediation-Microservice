@@ -1,0 +1,45 @@
+cwe: CWE-242
+name: Use of Inherently Dangerous Function
+languages: C, C++
+tags: Base, Draft
+---
+Short Description:
+The product calls a function that can never be guaranteed to work safely.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation Requirements:Ban the use of dangerous functions. Use their safe equivalent.
+- PHASE:Testing:Use grep or static analysis tools to spot usage of dangerous functions.
+Don't:
+- Other:Avoid situations leading toVaries by Context
+
+Language-Agnostic Guidance:
+Certain functions behave in dangerous ways regardless of how they are used. Functions in
+this category were often implemented without taking security concerns into account. The
+gets() function is unsafe because it does not perform bounds checking on the size of its
+input. An attacker can easily send arbitrarily-sized input to gets() and overflow the
+destination buffer. Similarly, the >> operator is unsafe to use when reading into a
+statically-allocated character array because it does not perform bounds checking on the
+size of its input. An attacker can easily send arbitrarily-sized input to the >> operator
+and overflow the destination buffer.
+
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Implementation Requirements:DESCRIPTION:Ban the use of dangerous functions. Use
+their safe equivalent.::PHASE:Testing:DESCRIPTION:Use grep or static analysis tools to
+spot usage of dangerous functions.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

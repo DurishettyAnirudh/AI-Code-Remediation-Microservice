@@ -1,0 +1,36 @@
+cwe: CWE-606
+name: Unchecked Input for Loop Condition
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not properly check inputs that are used for loop conditions, potentially
+leading to a denial of service or other consequences because of excessive looping.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Do not use user-controlled data for loop conditions.
+- PHASE:Implementation:Perform input validation.
+Don't:
+- Availability:Avoid situations leading toDoS: Resource Consumption (CPU)
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Implementation:DESCRIPTION:Do not use user-controlled data for loop
+conditions.::PHASE:Implementation:DESCRIPTION:Perform input validation.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

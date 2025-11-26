@@ -1,0 +1,35 @@
+cwe: CWE-179
+name: Incorrect Behavior Order: Early Validation
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product validates input before applying protection mechanisms that modify the input,
+which could allow an attacker to bypass the validation via dangerous inputs that only
+arise after the modification.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:Input Validation:Inputs should be decoded and canonicalized to the application's current internal representation before being validated (CWE-180). Make sure that the application does not decode the same input twice (CWE-174). Such errors could be used to bypass allowlist validation schemes by introducing dangerous inputs after they have been checked.
+Don't:
+- Access Control:Integrity:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toExecute Unauthorized Code or Commands:NOTE:An attacker could include dangerous input that bypasses validation protection mechanisms which can be used to launch various attacks including injection attacks, execute arbitrary code or cause other unintended behavior.
+
+Language-Agnostic Guidance:
+Product needs to validate data at the proper time, after data has been canonicalized and
+cleansed. Early validation is susceptible to various manipulations that result in
+dangerous inputs that are produced by canonicalization and cleansing.
+
+::PHASE:Implementation:STRATEGY:Input Validation:DESCRIPTION:Inputs should be decoded and
+canonicalized to the application's current internal representation before being validated
+(CWE-180). Make sure that the application does not decode the same input twice (CWE-174).
+Such errors could be used to bypass allowlist validation schemes by introducing dangerous
+inputs after they have been checked.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

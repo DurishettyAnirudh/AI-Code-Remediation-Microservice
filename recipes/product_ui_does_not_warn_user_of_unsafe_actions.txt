@@ -1,0 +1,30 @@
+cwe: CWE-356
+name: Product UI does not Warn User of Unsafe Actions
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product's user interface does not warn the user before undertaking an unsafe action on
+behalf of that user. This makes it easier for attackers to trick users into inflicting
+damage to their system.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Non-Repudiation:Avoid situations leading toHide Activities
+
+Language-Agnostic Guidance:
+Product systems should warn users that a potentially dangerous action may occur if the
+user proceeds. For example, if the user downloads a file from an unknown source and
+attempts to execute the file on their machine, then the application's GUI can indicate
+that the file is unsafe.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

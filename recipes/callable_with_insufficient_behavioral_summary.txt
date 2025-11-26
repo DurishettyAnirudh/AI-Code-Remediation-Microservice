@@ -1,0 +1,29 @@
+cwe: CWE-1117
+name: Callable with Insufficient Behavioral Summary
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The code contains a function or method whose signature and/or associated inline
+documentation does not sufficiently describe the callable's inputs, outputs, side effects,
+assumptions, or return codes.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Maintainability
+
+Language-Agnostic Guidance:
+This issue makes it more difficult to maintain the product, which indirectly affects
+security by making it more difficult or time-consuming to find and/or fix vulnerabilities.
+It also might make it easier to introduce vulnerabilities.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

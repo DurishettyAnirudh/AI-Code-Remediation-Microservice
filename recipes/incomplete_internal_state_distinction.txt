@@ -1,0 +1,27 @@
+cwe: CWE-372
+name: Incomplete Internal State Distinction
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product does not properly determine which state it is in, causing it to assume it is
+in state X when in fact it is in state Y, causing it to perform incorrect operations in a
+security-relevant manner.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Integrity:Other:Avoid situations leading toVaries by Context:Avoid situations leading toUnexpected State
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

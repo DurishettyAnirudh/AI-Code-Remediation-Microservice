@@ -1,0 +1,31 @@
+cwe: CWE-708
+name: Incorrect Ownership Assignment
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product assigns an owner to a resource, but the owner is outside of the intended
+control sphere.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Policy:Periodically review the privileges and their owners.
+- PHASE:Testing:Use automated tools to check for privilege settings.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data:NOTE:An attacker could read and modify data for which they do not have permissions to access directly.
+
+Language-Agnostic Guidance:
+This may allow the resource to be manipulated by actors outside of the intended control
+sphere.
+
+::PHASE:Policy:DESCRIPTION:Periodically review the privileges and their
+owners.::PHASE:Testing:DESCRIPTION:Use automated tools to check for privilege settings.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

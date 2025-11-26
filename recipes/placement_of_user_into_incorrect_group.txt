@@ -1,0 +1,28 @@
+cwe: CWE-842
+name: Placement of User into Incorrect Group
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product or the administrator places a user into an incorrect group.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity
+
+Language-Agnostic Guidance:
+If the incorrect group has more access or privileges than the intended group, the user
+might be able to bypass intended security policy to access unexpected resources or perform
+unexpected actions. The access-control system might not be able to detect malicious usage
+of this group membership.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

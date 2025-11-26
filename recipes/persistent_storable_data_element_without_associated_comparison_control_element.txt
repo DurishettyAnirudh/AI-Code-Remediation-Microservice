@@ -1,0 +1,29 @@
+cwe: CWE-1097
+name: Persistent Storable Data Element without Associated Comparison Control Element
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product uses a storable data element that does not have all of the associated
+functions or methods that are necessary to support comparison.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+For example, with Java, a class that is made persistent requires both hashCode() and
+equals() methods to be defined. This issue can prevent the product from running reliably,
+due to incorrect or unexpected comparison results. If the relevant code is reachable by an
+attacker, then this reliability problem might introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

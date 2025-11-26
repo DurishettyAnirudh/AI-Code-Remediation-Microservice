@@ -1,0 +1,25 @@
+cwe: CWE-346
+name: Origin Validation Error
+languages: unspecified
+tags: Class, Draft
+---
+Short Description:
+The product does not properly verify that the source of data or communication is valid.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Other:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toVaries by Context:NOTE:An attacker can access any functionality that is inadvertently accessible to the source.
+
+Language-Agnostic Guidance:
+Document detection techniques and mitigation steps for this weakness.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

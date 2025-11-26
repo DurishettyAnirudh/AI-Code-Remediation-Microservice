@@ -1,0 +1,70 @@
+cwe: CWE-134
+name: Use of Externally-Controlled Format String
+languages: C, C++, Perl
+tags: Base, Draft, Error Handling, Logging, Memory Management, String Processing
+---
+Short Description:
+The product uses a function that accepts a format string as an argument, but the format
+string originates from an external source.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Requirements:Choose a language that is not subject to this flaw.
+- PHASE:Implementation:Ensure that all format string functions are passed a static string which cannot be controlled by the user, and that the proper number of arguments are always sent to that function as well. If at all possible, use functions that do not support the %n operator in format strings. [REF-116] [REF-117]
+- PHASE:Build and Compilation:Run compilers and linkers with high warning levels, since they may detect incorrect usage.
+Don't:
+- Confidentiality:Avoid situations leading toRead Memory:NOTE:Format string problems allow for information disclosure which can severely simplify exploitation of the program.
+- Integrity:Confidentiality:Availability:Avoid situations leading toModify Memory:Avoid situations leading toExecute Unauthorized Code or Commands:NOTE:Format string problems can result in the execution of arbitrary code, buffer overflows, denial of service, or incorrect data representation.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:This weakness can often be detected using
+automated static analysis tools. Many modern tools use data flow analysis or constraint-
+based techniques to minimize the number of false positives.::METHOD:Black
+Box:DESCRIPTION:Since format strings often occur in rarely-occurring erroneous conditions
+(e.g. for error message logging), they can be difficult to detect using black box methods.
+It is highly likely that many latent issues exist in executables that do not have
+associated source code (or equivalent source.:EFFECTIVENESS:Limited::METHOD:Automated
+Static Analysis - Binary or Bytecode:DESCRIPTION:According to SOAR [REF-1479], the
+following detection techniques may be useful: Highly cost effective: Bytecode Weakness
+Analysis - including disassembler + source code weakness analysis Binary Weakness Analysis
+- including disassembler + source code weakness analysis Cost effective for partial
+coverage: Binary / Bytecode simple extractor - strings, ELF readers,
+etc.:EFFECTIVENESS:High::METHOD:Manual Static Analysis - Binary or
+Bytecode:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may
+be useful: Cost effective for partial coverage: Binary / Bytecode disassembler - then use
+manual analysis for vulnerabilities & anomalies:EFFECTIVENESS:SOAR Partial::METHOD:Dynamic
+Analysis with Automated Results Interpretation:DESCRIPTION:According to SOAR [REF-1479],
+the following detection techniques may be useful: Cost effective for partial coverage: Web
+Application Scanner Web Services Scanner Database Scanners:EFFECTIVENESS:SOAR
+Partial::METHOD:Dynamic Analysis with Manual Results Interpretation:DESCRIPTION:According
+to SOAR [REF-1479], the following detection techniques may be useful: Cost effective for
+partial coverage: Fuzz Tester Framework-based Fuzzer:EFFECTIVENESS:SOAR
+Partial::METHOD:Manual Static Analysis - Source Code:DESCRIPTION:According to SOAR
+[REF-1479], the following detection techniques may be useful: Highly cost effective:
+Manual Source Code Review (not inspections) Cost effective for partial coverage: Focused
+Manual Spotcheck - Focused manual analysis of source:EFFECTIVENESS:High::METHOD:Automated
+Static Analysis - Source Code:DESCRIPTION:According to SOAR [REF-1479], the following
+detection techniques may be useful: Highly cost effective: Source code Weakness Analyzer
+Context-configured Source Code Weakness Analyzer Cost effective for partial coverage:
+Warning Flags:EFFECTIVENESS:High::METHOD:Architecture or Design
+Review:DESCRIPTION:According to SOAR [REF-1479], the following detection techniques may be
+useful: Highly cost effective: Formal Methods / Correct-By-Construction Cost effective for
+partial coverage: Inspection (IEEE 1028 standard) (can apply to requirements, design,
+source code, etc.):EFFECTIVENESS:High::
+
+::PHASE:Requirements:DESCRIPTION:Choose a language that is not subject to this
+flaw.::PHASE:Implementation:DESCRIPTION:Ensure that all format string functions are passed
+a static string which cannot be controlled by the user, and that the proper number of
+arguments are always sent to that function as well. If at all possible, use functions that
+do not support the %n operator in format strings. [REF-116] [REF-117]::PHASE:Build and
+Compilation:DESCRIPTION:Run compilers and linkers with high warning levels, since they may
+detect incorrect usage.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

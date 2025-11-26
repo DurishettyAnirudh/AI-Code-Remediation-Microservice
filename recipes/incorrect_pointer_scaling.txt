@@ -1,0 +1,31 @@
+cwe: CWE-468
+name: Incorrect Pointer Scaling
+languages: C, C++
+tags: Base, Incomplete
+---
+Short Description:
+In C and C++, one may often accidentally refer to the wrong memory due to the semantics of
+when math operations are implicitly scaled.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Use a platform with high-level memory abstractions.
+- PHASE:Implementation:Always use array indexing instead of direct pointer manipulation.
+- PHASE:Architecture and Design:Use technologies for preventing buffer overflows.
+Don't:
+- Confidentiality:Integrity:Avoid situations leading toRead Memory:Avoid situations leading toModify Memory:NOTE:Incorrect pointer scaling will often result in buffer overflow conditions. Confidentiality can be compromised if the weakness is in the context of a buffer over-read or under-read.
+
+Language-Agnostic Guidance:
+::PHASE:Architecture and Design:DESCRIPTION:Use a platform with high-level memory
+abstractions.::PHASE:Implementation:DESCRIPTION:Always use array indexing instead of
+direct pointer manipulation.::PHASE:Architecture and Design:DESCRIPTION:Use technologies
+for preventing buffer overflows.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

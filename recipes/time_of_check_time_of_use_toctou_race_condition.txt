@@ -1,0 +1,63 @@
+cwe: CWE-367
+name: Time-of-check Time-of-use (TOCTOU) Race Condition
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product checks the state of a resource before using that resource, but the resource's
+state can change between the check and the use in a way that invalidates the results of
+the check.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Implementation:The most basic advice for TOCTOU vulnerabilities is to not perform a check before the use. This does not resolve the underlying issue of the execution of a function on a resource whose state and identity cannot be assured, but it does help to limit the false sense of security given by the check.
+- PHASE:Implementation:When the file being altered is owned by the current user and group, set the effective gid and uid to that of the current user and group when executing this statement.
+- PHASE:Architecture and Design:Limit the interleaving of operations on files from multiple processes.
+- PHASE:Implementation Architecture and Design:If you cannot perform operations atomically and you must share access to the resource between multiple processes or threads, then try to limit the amount of time (CPU cycles) between the check and use of the resource. This will not fix the problem, but it could make it more difficult for an attack to succeed.
+- PHASE:Implementation:Recheck the resource after the use call to verify that the action was taken appropriately.
+- PHASE:Architecture and Design:Ensure that some environmental locking mechanism can be used to protect resources effectively.
+- PHASE:Implementation:Ensure that locking occurs before the check, as opposed to afterwards, such that the resource, as checked, is the same as it is when in use.
+Don't:
+- Integrity:Other:Avoid situations leading toAlter Execution Logic:Avoid situations leading toUnexpected State:NOTE:The attacker can gain access to otherwise unauthorized resources.
+- Integrity:Other:Avoid situations leading toModify Application Data:Avoid situations leading toModify Files or Directories:Avoid situations leading toModify Memory:Avoid situations leading toOther:NOTE:Race conditions such as this kind may be employed to gain read or write access to resources which are not normally readable or writable by the user in question.
+- Integrity:Other:Avoid situations leading toOther:NOTE:The resource in question, or other resources (through the corrupted one), may be changed in undesirable ways by a malicious user.
+- Non-Repudiation:Avoid situations leading toHide Activities:NOTE:If a file or other resource is written in this method, as opposed to in a valid way, logging of the activity may not occur.
+- Non-Repudiation:Other:Avoid situations leading toOther:NOTE:In some cases it may be possible to delete files a malicious user might not otherwise have access to, such as log files.
+- Other:Avoid situations leading toUnexpected State:NOTE:The product may perform invalid actions when the resource is in an unexpected state.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Implementation:DESCRIPTION:The most basic advice for TOCTOU vulnerabilities is to
+not perform a check before the use. This does not resolve the underlying issue of the
+execution of a function on a resource whose state and identity cannot be assured, but it
+does help to limit the false sense of security given by the
+check.::PHASE:Implementation:DESCRIPTION:When the file being altered is owned by the
+current user and group, set the effective gid and uid to that of the current user and
+group when executing this statement.::PHASE:Architecture and Design:DESCRIPTION:Limit the
+interleaving of operations on files from multiple processes.::PHASE:Implementation
+Architecture and Design:DESCRIPTION:If you cannot perform operations atomically and you
+must share access to the resource between multiple processes or threads, then try to limit
+the amount of time (CPU cycles) between the check and use of the resource. This will not
+fix the problem, but it could make it more difficult for an attack to
+succeed.::PHASE:Implementation:DESCRIPTION:Recheck the resource after the use call to
+verify that the action was taken appropriately.::PHASE:Architecture and
+Design:DESCRIPTION:Ensure that some environmental locking mechanism can be used to protect
+resources effectively.::PHASE:Implementation:DESCRIPTION:Ensure that locking occurs before
+the check, as opposed to afterwards, such that the resource, as checked, is the same as it
+is when in use.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

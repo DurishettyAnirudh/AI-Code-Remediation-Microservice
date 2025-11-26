@@ -1,0 +1,36 @@
+cwe: CWE-459
+name: Incomplete Cleanup
+languages: unspecified
+tags: Base, Draft, File Processing
+---
+Short Description:
+The product does not properly clean up and remove temporary or supporting resources after
+they have been used.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design Implementation:Temporary files and other supporting resources should be deleted/released immediately after they are no longer needed.
+Don't:
+- Other:Confidentiality:Integrity:Avoid situations leading toOther:Avoid situations leading toRead Application Data:Avoid situations leading toModify Application Data:Avoid situations leading toDoS: Resource Consumption (Other):NOTE:It is possible to overflow the number of temporary files because directories typically have limits on the number of files allowed. This could create a denial of service problem.
+
+Language-Agnostic Guidance:
+::METHOD:Automated Static Analysis:DESCRIPTION:Automated static analysis, commonly
+referred to as Static Application Security Testing (SAST), can find some instances of this
+weakness by analyzing source code (or binary/compiled code) without having to execute it.
+Typically, this is done by building a model of data flow and control flow, then searching
+for potentially-vulnerable patterns that connect sources (origins of input) with sinks
+(destinations where the data interacts with external components, a lower layer such as the
+OS, etc.):EFFECTIVENESS:High::
+
+::PHASE:Architecture and Design Implementation:DESCRIPTION:Temporary files and other
+supporting resources should be deleted/released immediately after they are no longer
+needed.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

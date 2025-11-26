@@ -1,0 +1,28 @@
+cwe: CWE-1087
+name: Class with Virtual Method without a Virtual Destructor
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+A class contains a virtual method, but the method does not have an associated virtual
+destructor.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+This issue can prevent the product from running reliably, e.g. due to undefined behavior.
+If the relevant code is reachable by an attacker, then this reliability problem might
+introduce a vulnerability.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

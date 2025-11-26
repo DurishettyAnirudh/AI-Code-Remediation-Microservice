@@ -1,0 +1,30 @@
+cwe: CWE-1066
+name: Missing Serialization Control Element
+languages: unspecified
+tags: Base, Incomplete
+---
+Short Description:
+The product contains a serializable data element that does not have an associated
+serialization method.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Other:Avoid situations leading toReduce Reliability
+
+Language-Agnostic Guidance:
+This issue can prevent the product from running reliably, e.g. by triggering an exception.
+If the relevant code is reachable by an attacker, then this reliability problem might
+introduce a vulnerability. As examples, the serializable nature of a data element comes
+from a serializable SerializableAttribute attribute in .NET and the inheritance from the
+java.io.Serializable interface in Java.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,36 @@
+cwe: CWE-124
+name: Buffer Underwrite ('Buffer Underflow')
+languages: C, C++
+tags: Base, Incomplete, Memory Management
+---
+Short Description:
+The product writes to a buffer using an index or pointer that references a memory location
+prior to the beginning of the buffer.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Requirements:Choose a language that is not susceptible to these issues.
+- PHASE:Implementation:All calculated values that are used as index or for pointer arithmetic should be validated to ensure that they are within an expected range.
+Don't:
+- Integrity:Availability:Avoid situations leading toModify Memory:Avoid situations leading toDoS: Crash, Exit, or Restart:NOTE:Out of bounds memory access will very likely result in the corruption of relevant memory, and perhaps instructions, possibly leading to a crash.
+- Integrity:Confidentiality:Availability:Access Control:Other:Avoid situations leading toExecute Unauthorized Code or Commands:Avoid situations leading toModify Memory:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toOther:NOTE:If the corrupted memory can be effectively controlled, it may be possible to execute arbitrary code. If the corrupted memory is data rather than instructions, the system will continue to function with improper changes, possibly in violation of an implicit or explicit policy. The consequences would only be limited by how the affected data is used, such as an adjacent memory location that is used to specify whether the user has special privileges.
+- Access Control:Other:Avoid situations leading toBypass Protection Mechanism:Avoid situations leading toOther:NOTE:When the consequence is arbitrary code execution, this can often be used to subvert any other security service.
+
+Language-Agnostic Guidance:
+This typically occurs when a pointer or its index is decremented to a position before the
+buffer, when pointer arithmetic results in a position before the beginning of the valid
+memory location, or when a negative index is used.
+
+::PHASE:Requirements:DESCRIPTION:Choose a language that is not susceptible to these
+issues.::PHASE:Implementation:DESCRIPTION:All calculated values that are used as index or
+for pointer arithmetic should be validated to ensure that they are within an expected
+range.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

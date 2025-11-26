@@ -1,0 +1,23 @@
+Plan: RAG-Enhanced Code Remediation System
+TL;DR: Add a recipe-based retrieval system with CWE-ID vector lookup (primary) and full-text semantic search (fallback) to provide contextual guidance before sending prompts to Ollama.
+
+Steps
+Create recipes directory structure - Set up recipes folder with pattern files like sql_injection.txt, each containing metadata headers and remediation guidance.
+
+Build vector store management - Implement vector_store.py with functions to parse recipe metadata, create CWE-ID embeddings, build full-text embeddings, and save/load FAISS indices.
+
+Add retrieval pipeline - Create retriever.py with hybrid lookup: try CWE-ID vector search first, fallback to semantic search on full recipe content with metadata filtering.
+
+Integrate with existing flow - Modify main.py to load vector store on startup, retrieve relevant context before calling query_ollama, and enhance the system prompt with retrieved guidance.
+
+Update API and logging - Extend api.py to handle vector store initialization, add retrieval metrics to log_metrics, and ensure both CLI and FastAPI paths use the enhanced context.
+
+Add startup pipeline - Implement automatic recipe scanning on app start: detect new/changed files, rebuild indices if needed, or load existing vector store from disk.
+
+Further Considerations
+Which embedding model to use? OpenAI embeddings, Sentence Transformers, or local models like all-MiniLM-L6-v2?
+
+Vector store persistence strategy? Save FAISS indices to disk with timestamps, or rebuild on every startup?
+
+Recipe file format standardization? YAML frontmatter vs simple --- delimited headers for metadata parsing?
+

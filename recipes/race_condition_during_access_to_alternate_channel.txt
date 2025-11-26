@@ -1,0 +1,27 @@
+cwe: CWE-421
+name: Race Condition During Access to Alternate Channel
+languages: unspecified
+tags: Base, Draft, Program Invocation
+---
+Short Description:
+The product opens an alternate channel to communicate with an authorized user, but the
+channel is accessible to other actors.
+
+Secure Coding Checklist:
+Do:
+- Apply least privilege, validate input, and follow vendor hardening guides.
+Don't:
+- Access Control:Avoid situations leading toGain Privileges or Assume Identity:Avoid situations leading toBypass Protection Mechanism
+
+Language-Agnostic Guidance:
+This creates a race condition that allows an attacker to access the channel before the
+authorized user does.
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```

@@ -1,0 +1,41 @@
+cwe: CWE-322
+name: Key Exchange without Entity Authentication
+languages: unspecified
+tags: Base, Draft
+---
+Short Description:
+The product performs a key exchange with an actor without verifying the identity of that
+actor.
+
+Secure Coding Checklist:
+Do:
+- PHASE:Architecture and Design:Ensure that proper authentication is included in the system design.
+- PHASE:Implementation:Understand and properly implement all checks necessary to ensure the identity of entities involved in encrypted communications.
+Don't:
+- Access Control:Avoid situations leading toBypass Protection Mechanism:NOTE:No authentication takes place in this process, bypassing an assumed protection of encryption.
+- Confidentiality:Avoid situations leading toRead Application Data:NOTE:The encrypted communication between a user and a trusted host may be subject to sniffing by any actor in the communication path.
+
+Language-Agnostic Guidance:
+Performing a key exchange will preserve the integrity of the information sent between two
+entities, but this will not guarantee that the entities are who they claim they are. This
+may enable an attacker to impersonate an actor by modifying traffic between the two
+entities. Typically, this involves a victim client that contacts a malicious server that
+is impersonating a trusted server. If the client skips authentication or ignores an
+authentication failure, the malicious server may request authentication information from
+the user. The malicious server can then use this authentication information to log in to
+the trusted server using the victim's credentials, sniff traffic between the victim and
+trusted server, etc.
+
+::PHASE:Architecture and Design:DESCRIPTION:Ensure that proper authentication is included
+in the system design.::PHASE:Implementation:DESCRIPTION:Understand and properly implement
+all checks necessary to ensure the identity of entities involved in encrypted
+communications.::
+
+Sample Fix Idea (Pseudo-code):
+```pseudo
+# High-level remediation stub
+if receives_untrusted_input():
+    validate_against_allowlist()
+    enforce_least_privilege()
+    log_and_monitor()
+```
