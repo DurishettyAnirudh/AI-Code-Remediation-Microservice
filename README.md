@@ -35,6 +35,7 @@ A setup script is provided to automate the entire process.
 2.  **Ollama**: The Ollama application must be installed and running. You can download it from [ollama.com](https://ollama.com/).
 
 **Automated Setup:**
+(May take some time for initial setup.)
 Simply double-click the `setup.bat` file. It will perform the following steps:
 1.  Check for Python and a running Ollama instance.
 2.  Pull the default model (`gemma3:1b`) if it's not already available.
