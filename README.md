@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AI Code Remediation Microservice
 
 This project provides a local, AI-powered microservice for identifying and fixing vulnerabilities in code snippets. It uses a local Ollama instance to run large language models, a FastAPI backend to expose the logic, a Streamlit UI for interaction, and a Retrieval-Augmented Generation (RAG) pipeline to provide context-specific guidance.
@@ -97,6 +96,3 @@ Here is an example of a request sent to the API and the corresponding response.
 - **RAG Knowledge Base**: The effectiveness of the RAG pipeline is limited by the content in the `recipes/` directory. If no relevant recipe is found, the model will not receive any specific guidance.
 - **Model Reliability**: The correctness of the code fix is not guaranteed. All AI-generated code should be carefully reviewed by a human expert before being used in a production environment.
 - **Vector Store Updates**: The FAISS vector store does not update automatically. If you add or modify files in the `recipes/` folder, you must manually delete the `faiss_*.bin` and `documents.json` files and restart the server to force the index to be rebuilt.
-=======
-# AI-Code-Remediation-Microservice
->>>>>>> 95225d55f9c4aefb2fbdca0abc57a749d1fa19fc
