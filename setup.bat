@@ -18,20 +18,7 @@ set VENV_NAME=venv
 set PYTHON_CMD=python
 set REQUIRED_MODEL=gemma3:1b
 
-:: --- 1. Administrator Check ---
-echo Checking for Administrator privileges...
-net session >nul 2>nul
-if %errorlevel% neq 0 (
-    echo --------------------------------------------------------------------
-    echo ^> ERROR: Administrator privileges are required.
-    echo ^> Please right-click on setup.bat and select "Run as administrator".
-    echo --------------------------------------------------------------------
-    pause
-    goto :eof
-)
-echo Privileges check passed.
-
-:: --- 2. Check for Python ---
+:: --- 1. Check for Python ---
 echo.
 echo Checking for Python installation...
 where %PYTHON_CMD% >nul 2>nul
@@ -46,7 +33,7 @@ if %errorlevel% neq 0 (
 )
 echo Python found.
 
-:: --- 3. Check for Ollama ---
+:: --- 2. Check for Ollama ---
 echo.
 echo Checking for Ollama server...
 curl http://localhost:11434 >nul 2>nul
@@ -61,7 +48,7 @@ if %errorlevel% neq 0 (
 )
 echo Ollama server is running.
 
-:: --- 4. Check for and Pull Ollama Model ---
+:: --- 3. Check for and Pull Ollama Model ---
 echo.
 echo Checking for Ollama model '%REQUIRED_MODEL%'...
 ollama show %REQUIRED_MODEL% >nul 2>nul
@@ -81,7 +68,7 @@ if %errorlevel% neq 0 (
     echo Model '%REQUIRED_MODEL%' is already available.
 )
 
-:: --- 5. Create Virtual Environment ---
+:: --- 4. Create Virtual Environment ---
 echo.
 if not exist "%VENV_NAME%\" (
     echo Creating virtual environment in '%VENV_NAME%'...
@@ -95,7 +82,7 @@ if not exist "%VENV_NAME%\" (
     echo Virtual environment already exists.
 )
 
-:: --- 6. Install Dependencies ---
+:: --- 5. Install Dependencies ---
 echo.
 echo Activating virtual environment and installing dependencies...
 call "%VENV_NAME%\Scripts\activate.bat"
@@ -106,7 +93,7 @@ if %errorlevel% neq 0 (
 )
 echo Dependencies installed successfully.
 
-:: --- 7. Start FastAPI Server ---
+:: --- 6. Start FastAPI Server ---
 echo.
 echo Starting the FastAPI server in a new window...
 start "FastAPI Server" cmd /c "call "%VENV_NAME%\Scripts\activate.bat" && uvicorn api:app --reload"
@@ -115,7 +102,7 @@ start "FastAPI Server" cmd /c "call "%VENV_NAME%\Scripts\activate.bat" && uvicor
 echo Waiting for server to initialize...
 timeout /t 5 /nobreak >nul
 
-:: --- 8. Launch Streamlit UI ---
+:: --- 7. Launch Streamlit UI ---
 echo.
 echo Launching the Streamlit UI...
 streamlit run streamlit_app.py
